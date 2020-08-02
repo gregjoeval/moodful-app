@@ -1,0 +1,65 @@
+{
+  "shadows": [
+    "none"
+  ],
+  "palette": {
+    "primary": {
+      "main": "#3cdad5"
+    },
+    "secondary": {
+      "main": "#047874"
+    },
+    "text": {
+      "primary": "#000",
+      "secondary": "#000"
+    },
+    "background": {
+      "paper": "#fff",
+      "default": "#fafafa"
+    },
+    "error": {
+      "main": "#f22983"
+    },
+    "warning": {
+      "main": "#ffd034"
+    },
+    "info": {
+      "main": "#2dbde2"
+    },
+    "success": {
+      "main": "#5dd24d"
+    },
+    "action": {
+      "hoverOpacity": "0.1"
+    }
+  },
+  "typography": {
+    "fontFamily": "Roboto",
+    "fontSize": 14,
+    "button": {
+      "fontWeight": "500",
+      "fontSize": 14,
+      "textTransform": "capitalize"
+    }
+  },
+  "props": {
+    "MuiButtonBase": {
+      "disableRipple": false
+    },
+    "MuiButton": {
+      "disableElevation": false
+    },
+    "MuiAlert": {
+      "variant": "standard"
+    }
+  },
+  "overrides": {
+    "MuiButton": {
+      "root": {
+        "borderRadius": 12,
+        "height": 46,
+        "padding": "10px"
+      }
+    }
+  }
+}
