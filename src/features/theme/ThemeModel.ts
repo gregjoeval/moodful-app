@@ -2,7 +2,7 @@ import { PaletteType, ThemeOptions } from '@material-ui/core';
 import _ from 'lodash';
 import themeDefaults from './themeDefaults.json';
 
-export interface ITheme {
+export interface IThemeModel {
     name: string;
     type: PaletteType;
     primaryColor?: string;
@@ -17,7 +17,7 @@ interface IThemeOptions extends ThemeOptions {
     name: string;
 }
 
-const toMuiThemeOptions = (theme: ITheme): IThemeOptions => {
+const toMuiThemeOptions = (theme: IThemeModel): IThemeOptions => {
     const overrides = {
         name: theme.name,
         palette: {
@@ -37,7 +37,7 @@ const toMuiThemeOptions = (theme: ITheme): IThemeOptions => {
     return _.merge<any, IThemeOptions>(themeDefaults, overrides);
 };
 
-const create = (args: Partial<ITheme>): ITheme => {
+const create = (args: Partial<IThemeModel>): IThemeModel => {
     if (!args.name) throw new Error('Missing required property name on ITheme');
 
     return {

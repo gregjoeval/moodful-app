@@ -1,10 +1,10 @@
 import { createModelSlice, IModelState } from '@gjv/redux-slice-factory';
 import { IGlobalState } from '../../store/configureStore';
 import { IDuck } from '../types';
-import { ITheme } from './ThemeModel';
+import { IThemeModel } from './ThemeModel';
 import { DefaultTheme } from './Themes';
 
-export type SliceModel = ITheme
+export type SliceModel = IThemeModel
 export type SliceState = IModelState<SliceModel>
 
 const slice = createModelSlice<IGlobalState, SliceModel>({

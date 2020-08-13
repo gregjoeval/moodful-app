@@ -15,5 +15,8 @@
     "@gjv/eslint-config",
     "@gjv/eslint-config-typescript",
     "@gjv/eslint-config-react"
-  ]
+  ],
+  "rules": {
+    "react/prop-types": "off"
+  }
 }

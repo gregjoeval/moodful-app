@@ -1,10 +1,10 @@
-import { AppBar, Theme, Toolbar } from '@material-ui/core';
+import { Theme, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
 import SectionLayout from './SectionLayout';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme>((theme) => ({
     mainBackgroundColor: {
         backgroundColor: theme.palette.background.default
     },
@@ -16,24 +16,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     screenPadding: {
         [theme.breakpoints.up('xs')]: {
-            paddingTop: theme.spacing(4),
-            paddingBottom: theme.spacing(4)
+            padding: theme.spacing(4, 0)
         },
         [theme.breakpoints.up('sm')]: {
-            paddingTop: theme.spacing(7),
-            paddingBottom: theme.spacing(7)
+            padding: theme.spacing(7, 0)
         },
         [theme.breakpoints.up('md')]: {
-            paddingTop: theme.spacing(9),
-            paddingBottom: theme.spacing(9)
+            padding: theme.spacing(9, 0)
         },
         [theme.breakpoints.up('lg')]: {
-            paddingTop: theme.spacing(11),
-            paddingBottom: theme.spacing(11)
+            padding: theme.spacing(11, 0)
         },
         [theme.breakpoints.up('xl')]: {
-            paddingTop: theme.spacing(13),
-            paddingBottom: theme.spacing(13)
+            padding: theme.spacing(13, 0)
         }
     },
     header: {
@@ -50,7 +45,7 @@ type ScreenLayoutProps = {
     children: React.ReactNode;
     footer?: React.ReactElement<typeof Toolbar>;
     header?: React.ReactElement<typeof Toolbar>;
-    backgroundClassName?: string | null;
+    backgroundClassName?: string;
     disableGutter?: boolean;
 };
 
@@ -61,7 +56,7 @@ const ScreenLayout: React.FunctionComponent<ScreenLayoutProps> = ({ children, fo
             {header}
             <main
                 className={clsx([
-                    backgroundClassName || classes.mainBackgroundColor,
+                    backgroundClassName ?? classes.mainBackgroundColor,
                     Boolean(header) && classes.hasHeader,
                     Boolean(footer) && classes.hasFooter
                 ])}

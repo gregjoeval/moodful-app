@@ -4,9 +4,8 @@ import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 
 const useStyles = makeStyles<Theme>((theme) => ({
-    section: {
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1)
+    sectionPadding: {
+        padding: theme.spacing(0, 1)
     }
 }));
 
@@ -22,6 +21,7 @@ type SectionLayoutProps = {
 
 const SectionLayout: React.FunctionComponent<SectionLayoutProps> = ({
     children,
+    disableGutter,
     xs = 'auto',
     sm = 'auto',
     md = 'auto',
@@ -32,7 +32,7 @@ const SectionLayout: React.FunctionComponent<SectionLayoutProps> = ({
     return (
         <Grid
             alignItems={'stretch'}
-            className={classes.section}
+            className={disableGutter ? '' : classes.sectionPadding}
             container={true}
             direction={'row'}
             justify={'center'}

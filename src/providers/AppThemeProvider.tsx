@@ -1,15 +1,11 @@
 import { createMuiTheme, CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ThemeDuck } from '../features/theme';
 import ThemeModel from '../features/theme/ThemeModel';
 
-interface IAppThemeProviderProps {
-    children: ReactNode;
-}
-
-const AppThemeProvider: FunctionComponent<IAppThemeProviderProps> = ({ children }: IAppThemeProviderProps) => {
+const AppThemeProvider: React.FunctionComponent = ({ children }) => {
     const themeGlobalState = useSelector(ThemeDuck.Selectors.selectModel);
 
     const theme = useMemo(() => createMuiTheme(ThemeModel.toMuiThemeOptions(themeGlobalState)), [themeGlobalState]);
