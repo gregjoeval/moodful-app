@@ -27,7 +27,7 @@ jobs:
           action: "upload"
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
-          app_artifact_location: "/build" # Built app content directory - optional
+          app_artifact_location: "build" # Built app content directory - optional
           app_build_command: "npm run build"
 
   close_pull_request_job:
