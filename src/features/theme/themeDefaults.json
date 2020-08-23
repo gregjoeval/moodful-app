@@ -9,14 +9,6 @@
     "secondary": {
       "main": "#da532c"
     },
-    "text": {
-      "primary": "#000",
-      "secondary": "#000"
-    },
-    "background": {
-      "paper": "#fff",
-      "default": "#fafafa"
-    },
     "error": {
       "main": "#f22983"
     },

@@ -1,6 +1,7 @@
 import { FlexLayout } from '@gjv/material-ui-adjunct';
 import { Typography } from '@material-ui/core';
 import React from 'react';
+import Header from '../components/Header/Header';
 import { ScreenLayout } from '../layouts';
 import ScreenModel from '../models/ScreenModel';
 
@@ -8,7 +9,7 @@ const Path = '/not-found';
 const Name = 'Not Found';
 
 const NotFound: React.FunctionComponent = () => (
-    <ScreenLayout>
+    <ScreenLayout header={<Header />}>
         <FlexLayout
             direction={'column'}
             spacing={1}

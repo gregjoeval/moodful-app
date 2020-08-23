@@ -5,9 +5,6 @@ const configuration: IConfigurationModel | null = null;
 
 export const getConfiguration = (): IConfigurationModel => {
     if (configuration === null) {
-        const error = Error('Configuration has either not been fetch or there was a problem fetching it.');
-        console.warn(error.message, error);
-
         return ConfigurationModel.create({
             AppTitle: process.env.REACT_APP__TITLE,
             GithubRepositoryUri: process.env.REACT_APP__GITHUB_REPOSITORY_URI,

@@ -6,7 +6,7 @@ import SectionLayout from './SectionLayout';
 
 const useStyles = makeStyles<Theme>((theme) => ({
     mainBackgroundColor: {
-        backgroundColor: theme.palette.background.default
+        // backgroundColor: theme.palette.background.default
     },
     hasHeader: {
         paddingTop: theme.spacing(7)

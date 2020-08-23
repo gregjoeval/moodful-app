@@ -1,4 +1,6 @@
 import { createModelSlice, IModelState } from '@gjv/redux-slice-factory';
+import { PaletteType } from '@material-ui/core';
+import { createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { IGlobalState } from '../../store/configureStore';
 import { IDuck } from '../types';
 import { IThemeModel } from './ThemeModel';
@@ -15,11 +17,28 @@ const slice = createModelSlice<IGlobalState, SliceModel>({
     }
 });
 
-const ThemeDuck: IDuck<SliceState, typeof slice.actions, typeof slice.selectors> = {
+const togglePaletteType = (currentPaletteType: PaletteType): PayloadAction<Partial<SliceModel>> => slice.actions.update({ type: currentPaletteType === 'dark' ? 'light' : 'dark' });
+
+const actions = {
+    ...slice.actions,
+    togglePaletteType: togglePaletteType
+};
+
+const selectPaletteType = createSelector(
+    slice.selectors.selectModel,
+    (theme) => theme.type
+);
+
+const selectors = {
+    ...slice.selectors,
+    selectPaletteType: selectPaletteType
+};
+
+const ThemeDuck: IDuck<SliceState, typeof actions, typeof selectors> = {
     Name: slice.name,
     Reducer: slice.reducer,
-    Actions: slice.actions,
-    Selectors: slice.selectors
+    Actions: actions,
+    Selectors: selectors
 };
 
 export default ThemeDuck;

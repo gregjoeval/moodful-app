@@ -1,10 +1,9 @@
-import ConfigurationDuck, { SliceModel, SliceState } from './ConfigurationDuck';
-import ConfigurationModel, { IConfigurationModel as IConfigurationModelType } from './ConfigurationModel';
+import ConfigurationDuck, { SliceState } from './ConfigurationDuck';
+import ConfigurationModel, { IConfigurationModel as ModelType } from './ConfigurationModel';
 
 const ConfigurationReducer = ConfigurationDuck.Reducer;
 
 export default ConfigurationReducer;
 export { ConfigurationDuck, ConfigurationModel };
-export type ConfigurationSliceModel = SliceModel;
 export type ConfigurationSliceState = SliceState;
-export type IConfigurationModel = IConfigurationModelType;
+export type IConfigurationModel = ModelType;

@@ -21,7 +21,6 @@ const useStyles = makeStyles(() => ({
 type HeaderLayoutProps = {
     alignContent?: GridContentAlignment;
     alignItems?: GridItemsAlignment;
-    children: Array<Node> | Node;
     direction?: GridDirection;
     justify?: GridJustification;
     spacing?: GridSpacing;
@@ -46,7 +45,7 @@ const HeaderLayout: React.FunctionComponent<HeaderLayoutProps> = ({
     md = 12,
     lg = 10,
     xl = 8
-}: HeaderLayoutProps) => {
+}) => {
     const classes = useStyles();
     return (
         <AppBar

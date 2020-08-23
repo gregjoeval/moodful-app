@@ -5,7 +5,7 @@ import { IGlobalState } from '../../store/configureStore';
 import { IDuck } from '../types';
 import { IConfigurationModel } from './ConfigurationModel';
 
-export type SliceModel = IConfigurationModel
+type SliceModel = IConfigurationModel
 export type SliceState = IModelState<SliceModel>
 
 const slice = createModelSlice<IGlobalState, SliceModel>({

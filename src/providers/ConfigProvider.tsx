@@ -1,23 +1,20 @@
-import React, { Fragment, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConfigurationDuck } from '../features/configuration';
+import usePolling from '../hooks/UsePolling';
 
-const AppConfigProvider: React.FunctionComponent = ({ children }) => {
+const ConfigProvider: React.FunctionComponent = ({ children }) => {
     const dispatch = useDispatch();
 
     const configurationHasInitialized = useSelector(ConfigurationDuck.Selectors.selectHasInitialized);
 
-    useEffect(() => {
-        if (!configurationHasInitialized) {
-            dispatch(ConfigurationDuck.Actions.get());
-        }
-    }, [configurationHasInitialized, dispatch]);
+    usePolling(() => dispatch(ConfigurationDuck.Actions.get()), 15 * 60 * 1000);
 
     return configurationHasInitialized
         ? (
-            <Fragment>
+            <React.Fragment>
                 {children}
-            </Fragment>
+            </React.Fragment>
         )
         : (
             <div>
@@ -26,4 +23,4 @@ const AppConfigProvider: React.FunctionComponent = ({ children }) => {
         );
 };
 
-export default AppConfigProvider;
+export default ConfigProvider;
