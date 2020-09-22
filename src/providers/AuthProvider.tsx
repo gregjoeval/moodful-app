@@ -14,11 +14,11 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
             audience={configurationModel.MoodfulApiUri}
             clientId={configurationModel.Auth0ClientId}
             domain={configurationModel.Auth0Domain}
+            redirectUri={window.location.origin}
             onRedirectCallback={(appState) => {
                 // Use the router's history module to replace the url
                 history.replace(appState?.returnTo ?? window.location.pathname);
             }}
-            redirectUri={window.location.origin}
         >
             {children}
         </Auth0Provider>

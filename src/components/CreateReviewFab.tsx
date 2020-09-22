@@ -1,12 +1,25 @@
-import { Fab, Theme, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
+import { StatusEnum } from '@gjv/redux-slice-factory';
+import {
+    Fab,
+    Theme,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button,
+    CircularProgress
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/styles';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import React, { useCallback, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { ReviewModel, ReviewsDuck } from '../features/reviews';
+import { IReviewModel, ReviewModel, ReviewsDuck } from '../features/reviews';
 import { getISOStringWithOffset } from '../lib/Utilities';
-import ReviewForm from './ReviewForm';
+import { IGlobalState } from '../store/configureStore';
+import ReviewFormFields from './ReviewFormFields';
 
 const useStyles = makeStyles<Theme>((theme) => ({
     fab: {
@@ -16,11 +29,29 @@ const useStyles = makeStyles<Theme>((theme) => ({
     }
 }));
 
+const dialogId = 'review-dialog';
+
 const CreateReviewFab: React.FunctionComponent = () => {
     const classes = useStyles();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<ThunkDispatch<IGlobalState, null, AnyAction>>();
+    const methods = useForm<IReviewModel>();
     const [openDialogId, setOpenDialogId] = useState<string | null>(null);
-    const dialogId = 'review-dialog';
+    const reviewsSliceState = useSelector(ReviewsDuck.Selectors.selectSliceState);
+
+    const onSubmit = useCallback((model) => {
+        const timestamp = getISOStringWithOffset();
+        const review = ReviewModel.create({
+            id: model.id ?? uuid(),
+            createdAt: model.createdAt ?? timestamp,
+            lastModified: timestamp,
+            rating: model.rating,
+            description: model.description,
+            secret: model.secret,
+            tagIds: model.tagIds
+        });
+        dispatch(ReviewsDuck.Actions.create(review));
+        setOpenDialogId(null);
+    }, [dispatch]);
 
     return (
         <React.Fragment>
@@ -35,33 +66,46 @@ const CreateReviewFab: React.FunctionComponent = () => {
             </Fab>
             <Dialog
                 aria-labelledby={`${dialogId}-title`}
+                disableBackdropClick={true}
+                fullWidth={true}
                 id={dialogId}
-                onClose={() => setOpenDialogId(null)}
                 open={Boolean(openDialogId)}
+                onClose={() => setOpenDialogId(null)}
             >
-                <DialogTitle id={`${dialogId}-title`}>
-                    {'Describe your mood.'}
-                </DialogTitle>
-                <DialogContent>
-                    <ReviewForm
-                        isSubmitting={false}
-                        model={{}}
-                        onSubmit={(model) => {
-                            const timestamp = getISOStringWithOffset();
-                            const review = ReviewModel.create({
-                                id: model.id ?? uuid(),
-                                createdAt: model.createdAt ?? timestamp,
-                                lastModified: timestamp,
-                                rating: model.rating,
-                                description: model.description,
-                                secret: model.secret,
-                                tags: model.tags
-                            });
-                            dispatch(ReviewsDuck.Actions.create(review));
-                            setOpenDialogId(null);
-                        }}
-                    />
-                </DialogContent>
+                <form onSubmit={methods.handleSubmit(onSubmit)}>
+                    <DialogTitle id={`${dialogId}-title`}>
+                        {'Describe your mood.'}
+                    </DialogTitle>
+                    <DialogContent>
+                        <FormProvider {...methods}>
+                            <ReviewFormFields />
+                        </FormProvider>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            color={'primary'}
+                            type={'submit'}
+                        >
+                            {
+                                reviewsSliceState.status === StatusEnum.Requesting
+                                    ? (
+                                        <CircularProgress
+                                            color={'inherit'}
+                                            size={28}
+                                        />
+                                    )
+                                    : 'Save'
+                            }
+                        </Button>
+                        <Button
+                            color={'primary'}
+                            type={'button'}
+                            onClick={() => setOpenDialogId(null)}
+                        >
+                            {'Cancel'}
+                        </Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </React.Fragment>
     );

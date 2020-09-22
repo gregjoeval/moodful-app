@@ -1,7 +1,6 @@
 import { Review } from '@gjv/moodful-api-client';
 import moment from 'moment';
 import { getISOStringWithOffset, isNil } from '../../lib/Utilities';
-import { ITagModel, TagModel } from '../tags';
 
 export interface IReviewModel {
     id: string;
@@ -10,7 +9,7 @@ export interface IReviewModel {
     secret: boolean;
     rating?: number;
     description?: string;
-    tags: Array<ITagModel>;
+    tagIds: Array<string>;
 }
 
 const create = (args: Partial<IReviewModel> = {}): IReviewModel => {
@@ -23,26 +22,21 @@ const create = (args: Partial<IReviewModel> = {}): IReviewModel => {
         secret: args.secret ?? false,
         rating: args.rating,
         description: args.description,
-        tags: args.tags ?? []
+        tagIds: args.tagIds ?? []
     };
 };
 
-const mapReviewToReviewModel = (model: Review): IReviewModel => {
-    const tags = model.tags?.map((tag) => TagModel.mapReviewTagsToReviewTagModel(tag));
-    return create({
-        ...model,
-        // eslint-disable-next-line no-undefined
-        createdAt: isNil(model.createdAt) ? undefined : getISOStringWithOffset(model.createdAt),
-        lastModified: isNil(model.lastModified) ? null : getISOStringWithOffset(model.lastModified),
-        tags: tags
-    });
-};
+const mapReviewToReviewModel = (model: Review): IReviewModel => create({
+    ...model, // TODO: map the props, this is lazy
+    // eslint-disable-next-line no-undefined
+    createdAt: isNil(model.createdAt) ? undefined : getISOStringWithOffset(model.createdAt),
+    lastModified: isNil(model.lastModified) ? null : getISOStringWithOffset(model.lastModified)
+});
 
 const mapReviewModelToReview = (model: IReviewModel): Review => ({
-    ...model,
+    ...model, // TODO: map the props, this is lazy
     createdAt: moment(model.createdAt).toDate(),
-    lastModified: isNil(model.lastModified) ? null : moment(model.lastModified).toDate(),
-    tags: []
+    lastModified: isNil(model.lastModified) ? null : moment(model.lastModified).toDate()
 });
 
 const ReviewModel = {

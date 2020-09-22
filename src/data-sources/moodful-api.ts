@@ -11,11 +11,7 @@ const createClientConfiguration = (): ClientConfiguration => {
     const middleware: Array<any> = [];
     return new ClientConfiguration({
         basePath: `${config.MoodfulApiUri}/api`,
-        // apiKey: accessToken,
-        // accessToken: accessToken,
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        },
+        headers: { Authorization: `Bearer ${accessToken}` },
         fetchApi: fetchApi,
         middleware: middleware
     });

@@ -1,5 +1,5 @@
 import { createEntitySlice, IEntityState, StatusEnum } from '@gjv/redux-slice-factory';
-import { createSelector, Dispatch } from '@reduxjs/toolkit';
+import { createSelector, Dispatch, ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { createReview, getReviews } from '../../data-sources/moodful-api';
 import { mapErrorToSerializableObject } from '../../lib/Utilities';
@@ -31,7 +31,7 @@ const get = () => async (dispatch: Dispatch) => {
     }
 };
 
-const create = (model: SliceModel) => async (dispatch: Dispatch) => {
+const create = (model: SliceModel) => async (dispatch: ThunkDispatch<IGlobalState, null, AnyAction>) => {
     dispatch(slice.actions.setStatus(StatusEnum.Requesting));
     dispatch(slice.actions.setError(null));
 

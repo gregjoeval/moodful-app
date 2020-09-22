@@ -28,8 +28,8 @@ const AccountMenu: React.FunctionComponent<AccountMenuProps> = ({ anchorElement,
                     anchorEl={anchorElement}
                     id={id}
                     keepMounted={true}
-                    onClose={onClose}
                     open={Boolean(anchorElement)}
+                    onClose={onClose}
                 >
                     <MenuItem>
                         {user.nickname ?? user.name}

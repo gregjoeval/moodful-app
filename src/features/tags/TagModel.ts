@@ -1,4 +1,4 @@
-import { ReviewTags, Tag } from '@gjv/moodful-api-client';
+import { Tag } from '@gjv/moodful-api-client';
 import { isNil } from '../../lib/Utilities';
 
 export interface ITagModel {
@@ -22,7 +22,9 @@ const create = (args: Partial<ITagModel> = {}): ITagModel => {
     };
 };
 
-const mapReviewTagsToReviewTagModel = (model: ReviewTags | Tag): ITagModel => create(model);
+const mapReviewTagsToReviewTagModel = (model: Tag): ITagModel => create({
+    ...model // TODO: map the props, this is lazy
+});
 
 const TagModel = {
     create: create,
