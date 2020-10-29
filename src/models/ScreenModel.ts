@@ -4,7 +4,7 @@ interface IScreenModelArguments<ScreenProps> extends Omit<IScreenModel<ScreenPro
     Icon?: JSX.Element;
 }
 
-export interface IScreenModel<ScreenProps = {}> {
+export interface IScreenModel<ScreenProps = Record<string, unknown>> {
     Component: React.FunctionComponent<ScreenProps>;
     Path: string;
     Name: string;

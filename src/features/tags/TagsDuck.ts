@@ -16,7 +16,7 @@ const slice = createEntitySlice<IGlobalState, SliceModel>({
     sortComparer: (a, b) => moment(a.createdAt).diff(b.createdAt, 'seconds')
 });
 
-const get = () => async (dispatch: Dispatch) => {
+const get = () => async (dispatch: Dispatch): Promise<void> => {
     dispatch(slice.actions.setStatus(StatusEnum.Requesting));
     dispatch(slice.actions.setError(null));
 

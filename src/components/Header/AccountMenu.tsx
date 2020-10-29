@@ -12,7 +12,11 @@ type AccountMenuProps = {
 };
 
 const AccountMenu: React.FunctionComponent<AccountMenuProps> = ({ anchorElement, id = 'account-menu-id', onClose, onOpen }) => {
+    // TODO find way to remove this
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+    // const userModel = user as Record<string, string>;
 
     return isAuthenticated
         ? (
@@ -32,7 +36,9 @@ const AccountMenu: React.FunctionComponent<AccountMenuProps> = ({ anchorElement,
                     onClose={onClose}
                 >
                     <MenuItem>
-                        {user.nickname ?? user.name}
+                        {/* TODO figure out way to remove this */}
+                        {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
+                        {user?.nickname ?? user?.name}
                     </MenuItem>
                     <MenuItem
                         button={true}

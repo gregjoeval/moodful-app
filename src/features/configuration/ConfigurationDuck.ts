@@ -13,7 +13,7 @@ const slice = createModelSlice<IGlobalState, SliceModel>({
     selectSliceState: (globalState) => globalState.Configuration
 });
 
-const get = () => (dispatch: Dispatch) => {
+const get = () => (dispatch: Dispatch): void => {
     dispatch(slice.actions.setStatus(StatusEnum.Requesting));
     dispatch(slice.actions.setError(null));
 

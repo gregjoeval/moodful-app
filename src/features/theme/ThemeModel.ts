@@ -34,7 +34,7 @@ const toMuiThemeOptions = (theme: IThemeModel): IThemeOptions => {
     };
 
     // themeDefaults generated with https://my-mui.com/
-    return _.merge<any, IThemeOptions>(themeDefaults, overrides);
+    return _.merge<Record<string, unknown>, IThemeOptions>(themeDefaults, overrides);
 };
 
 const create = (args: Partial<IThemeModel>): IThemeModel => {

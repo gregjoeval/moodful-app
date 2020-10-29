@@ -51,14 +51,8 @@ function IconContainer(props: IconContainerProps): JSX.Element {
 
 type FormModel = IReviewModel;
 
-interface IEditableFormModel extends Omit<FormModel, 'id'|'createdAt'|'lastModified'> {
-    id?: string;
-    createdAt?: string;
-    lastModified?: string | null;
-}
-
 const ReviewFormFields: React.FunctionComponent = () => {
-    const { register, errors, control, watch } = useFormContext<FormModel>();
+    const methods = useFormContext<FormModel>();
 
     /* eslint-disable react/jsx-sort-props */
     return (
@@ -74,17 +68,17 @@ const ReviewFormFields: React.FunctionComponent = () => {
                         precision={1}
                     />
                 )}
-                control={control}
-                defaultValue={watch(nameOf<FormModel>('rating')) ?? null}
+                control={methods.control}
+                defaultValue={methods.watch(nameOf<FormModel>('rating')) ?? null}
                 name={nameOf<FormModel>('rating')}
                 rules={{
                     required: true
                 }}
             />
             <TextField
-                error={Boolean(errors.description?.message)}
-                helperText={errors.description?.message}
-                inputRef={register({ required: 'A description is required.' })}
+                error={Boolean(methods.errors.description?.message)}
+                helperText={methods.errors.description?.message}
+                inputRef={methods.register({ required: 'A description is required.' })}
                 label={nameOf<FormModel>('description')}
                 multiline={true}
                 name={nameOf<FormModel>('description')}
