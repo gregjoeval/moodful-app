@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import { isNil } from '../lib/Utilities';
+
+type UsePollingCallback = (iterations: number) => void
 
 /**
  * Similar to useInterval except with the ability to change the interval and limit during the hook's lifetime
@@ -8,12 +11,12 @@ import { useEffect, useRef, useState } from 'react';
  * @param {number | null} limit - total number of times the callback function is allowed to be executed
  * @returns {number} - the number of times the callback function has been executed
  */
-function usePolling(callback: Function, interval: number, limit: number | null = null): number {
+function usePolling(callback: UsePollingCallback, interval: number, limit: number | null = null): number {
     if (interval <= 0) throw new Error('interval must be a number greater than zero');
 
     const [iterations, setIterations] = useState(0);
     const [hasStarted, setHasStarted] = useState(false);
-    const savedCallback = useRef<Function>();
+    const savedCallback = useRef<UsePollingCallback>();
 
     // Remember the latest callback.
     useEffect(() => {
@@ -23,10 +26,12 @@ function usePolling(callback: Function, interval: number, limit: number | null =
     // Set up the interval.
     useEffect(() => {
         const tick = (): void => {
-            if (savedCallback.current) {
-                savedCallback.current();
-                setIterations((numberOfIterations) => numberOfIterations + 1);
+            if (isNil(savedCallback.current)) {
+                return;
             }
+
+            savedCallback.current(iterations);
+            setIterations((numberOfIterations) => numberOfIterations + 1);
         };
 
         if (!hasStarted) {
@@ -42,7 +47,7 @@ function usePolling(callback: Function, interval: number, limit: number | null =
             };
         }
 
-        // intentional, useEffect needs a function or undefined
+        // intentional, useEffect must return a function or undefined
         // eslint-disable-next-line no-undefined
         return undefined;
     }, [iterations, hasStarted, interval, limit]);

@@ -1,5 +1,5 @@
 
-export function isNil(value: any): value is null | undefined {
+export function isNil(value: unknown): value is null | undefined {
     // eslint-disable-next-line no-undefined
     return value === null || value === undefined;
 }
@@ -13,7 +13,7 @@ export const getISOStringWithOffset = (dateTime: Date = new Date()): string => {
     const dif = tzo >= 0 ? '+' : '-';
     const pad = (num: number): string => {
         const norm = Math.floor(Math.abs(num));
-        return (norm < 10 ? '0' : '') + norm;
+        return (norm < 10 ? '0' : '').concat(norm.toString());
     };
 
     return `${dateTime.getFullYear()}-${pad(dateTime.getMonth() + 1)}-${pad(dateTime.getDate())}T${pad(dateTime.getHours())}:${pad(dateTime.getMinutes())}:${pad(dateTime.getSeconds())}${dif}${pad(tzo / 60)}:${pad(tzo % 60)}`;
@@ -25,7 +25,7 @@ export const getISOStringWithOffset = (dateTime: Date = new Date()): string => {
 export const mapErrorToSerializableObject = <TError extends Error = Error> (error: TError): Record<keyof Error, string> => {
     const propertyNames = Object.getOwnPropertyNames(error);
     return propertyNames.reduce((accumulator, propertyName) => {
-        const propertyDescriptorValue = Object.getOwnPropertyDescriptor(error, propertyName)?.value;
+        const propertyDescriptorValue: unknown = Object.getOwnPropertyDescriptor(error, propertyName)?.value;
         return {
             ...accumulator,
             [propertyName]: propertyDescriptorValue

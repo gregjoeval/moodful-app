@@ -38,7 +38,7 @@ const CreateReviewFab: React.FunctionComponent = () => {
     const [openDialogId, setOpenDialogId] = useState<string | null>(null);
     const reviewsSliceState = useSelector(ReviewsDuck.Selectors.selectSliceState);
 
-    const onSubmit = useCallback((model) => {
+    const onSubmit = useCallback((model: IReviewModel) => {
         const timestamp = getISOStringWithOffset();
         const review = ReviewModel.create({
             id: model.id ?? uuid(),
@@ -49,7 +49,7 @@ const CreateReviewFab: React.FunctionComponent = () => {
             secret: model.secret,
             tagIds: model.tagIds
         });
-        dispatch(ReviewsDuck.Actions.create(review));
+        void dispatch(ReviewsDuck.Actions.create(review));
         setOpenDialogId(null);
     }, [dispatch]);
 

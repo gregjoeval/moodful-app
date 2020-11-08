@@ -7,10 +7,10 @@ import usePolling from '../hooks/UsePolling';
 
 const accessTokenStorageKey = 'AccessToken';
 
-const parseToken = (token: string): any => {
+const parseToken = (token: string): Record<string, string> => {
     const payload = token.split(/[.]/)[1];
     const decodedToken = window.atob(payload);
-    return JSON.parse(decodedToken);
+    return JSON.parse(decodedToken) as Record<string, string>;
 };
 const getToken = (): string | null => window.localStorage.getItem(accessTokenStorageKey);
 const setToken = (value: string): void => window.localStorage.setItem(accessTokenStorageKey, value);
@@ -30,7 +30,7 @@ export const getAccessToken = (): string => {
 const intervalWithToken = 15 * 60 * 1000;
 const intervalWithoutToken = 3 * 1000;
 
-const withJWT = <Props extends object> (Component: React.ComponentType<Props>): React.FunctionComponent<Props> => (props) => {
+const withJWT = <Props extends Record<string, unknown>> (Component: React.ComponentType<Props>): React.FunctionComponent<Props> => (props) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const token = getToken();
@@ -42,8 +42,6 @@ const withJWT = <Props extends object> (Component: React.ComponentType<Props>): 
         setIsLoading(true);
         try {
             const accessToken = await getAccessTokenSilently({
-                // eslint-disable-next-line @typescript-eslint/camelcase
-                // redirect_uri: window.location.origin,
                 audience: configurationModel.MoodfulApiUri
             });
             // eslint-disable-next-line no-console
@@ -57,7 +55,7 @@ const withJWT = <Props extends object> (Component: React.ComponentType<Props>): 
     }, [configurationModel.MoodfulApiUri, getAccessTokenSilently]);
 
     usePolling(
-        async () => {
+        () => {
             if (!isLoading) {
                 // eslint-disable-next-line no-console
                 console.debug('Checking access token...');
@@ -65,7 +63,7 @@ const withJWT = <Props extends object> (Component: React.ComponentType<Props>): 
                 if (!isAuthenticated) {
                     removeToken();
                 } else if (token === null) {
-                    await getAccessTokenAsync();
+                    void getAccessTokenAsync();
                 } else {
                     const { exp } = parseToken(token);
                     const now = moment();
@@ -74,7 +72,7 @@ const withJWT = <Props extends object> (Component: React.ComponentType<Props>): 
                     if (difference >= 0) {
                         // eslint-disable-next-line no-console
                         console.debug('Access token has expired.');
-                        await getAccessTokenAsync();
+                        void getAccessTokenAsync();
                     }
                 }
             }
