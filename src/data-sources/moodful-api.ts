@@ -21,16 +21,30 @@ export const getTags = async (): Promise<Array<ITagModel>> => {
     const clientConfiguration = createClientConfiguration();
     const api = new TagsApi(clientConfiguration);
 
-    const tags = await api.getTags();
-    return tags?.map((tag) => TagModel.mapReviewTagsToReviewTagModel(tag)) ?? [];
+    try {
+        const tags = await api.getTags();
+        return tags?.map((tag) => TagModel.mapReviewTagsToReviewTagModel(tag)) ?? [];
+    } catch (err) {
+        const response = err as Response;
+        if (response.status === 404) return [];
+
+        throw response;
+    }
 };
 
 export const getReviews = async (): Promise<Array<IReviewModel>> => {
     const clientConfiguration = createClientConfiguration();
     const api = new ReviewsApi(clientConfiguration);
 
-    const reviews = await api.getReviews();
-    return reviews?.map((review) => ReviewModel.mapReviewToReviewModel(review)) ?? [];
+    try {
+        const reviews = await api.getReviews();
+        return reviews?.map((review) => ReviewModel.mapReviewToReviewModel(review)) ?? [];
+    } catch (err) {
+        const response = err as Response;
+        if (response.status === 404) return [];
+
+        throw response;
+    }
 };
 
 export const createReview = async (model: IReviewModel): Promise<IReviewModel> => {
