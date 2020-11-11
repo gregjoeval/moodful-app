@@ -1,5 +1,5 @@
 import { createModelSlice, IModelState, StatusEnum } from '@gjv/redux-slice-factory';
-import { createSelector, Dispatch } from '@reduxjs/toolkit';
+import { Dispatch } from '@reduxjs/toolkit';
 import { getConfiguration } from '../../data-sources/config';
 import { IGlobalState } from '../../store/configureStore';
 import { IDuck } from '../types';
@@ -32,15 +32,8 @@ const actions = {
     get: get
 };
 
-const selectHasInitialized = createSelector(
-    slice.selectors.selectModel,
-    slice.selectors.selectStatus,
-    (model, status) => Boolean(model) && status === StatusEnum.Settled
-);
-
 const selectors = {
-    ...slice.selectors,
-    selectHasInitialized: selectHasInitialized
+    ...slice.selectors
 };
 
 const ConfigurationDuck: IDuck<SliceState, typeof actions, typeof selectors> = {

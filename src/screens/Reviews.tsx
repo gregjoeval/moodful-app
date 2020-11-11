@@ -1,11 +1,12 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { FlexLayout } from '@gjv/material-ui-adjunct';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CreateReviewFab from '../components/CreateReviewFab';
 import Header from '../components/Header/Header';
 import { ReviewsDuck } from '../features/reviews';
+import CreateReviewFab from '../features/reviews/CreateReviewFab';
+import ReviewCard from '../features/reviews/ReviewCard';
 import withJWT from '../higher-order-components/WithJWT';
 import { ScreenLayout } from '../layouts';
 import ScreenModel from '../models/ScreenModel';
@@ -32,31 +33,33 @@ const Reviews: React.FunctionComponent = () => {
         <React.Fragment>
             <CreateReviewFab />
             <ScreenLayout header={<Header />}>
-                <Paper>
+                <FlexLayout
+                    direction={'column'}
+                    spacing={1}
+                >
+                    <Typography variant={'h5'}>
+                        {Name}
+                    </Typography>
                     <FlexLayout
                         direction={'column'}
                         spacing={1}
                     >
-                        <Typography variant={'h5'}>
-                            {Name}
-                        </Typography>
-                        <FlexLayout
-                            direction={'column'}
-                            spacing={1}
-                        >
-                            {
-                                reviews.map((review) => (
-                                    <Typography
-                                        key={review.id}
-                                        variant={'body1'}
-                                    >
-                                        {review.createdAt}
-                                    </Typography>
-                                ))
-                            }
-                        </FlexLayout>
+                        {
+                            reviews.map((review) => (
+                                <ReviewCard
+                                    createdAt={review.createdAt}
+                                    description={review.description}
+                                    id={review.id}
+                                    key={review.id}
+                                    lastModified={review.lastModified}
+                                    rating={review.rating}
+                                    secret={review.secret}
+                                    tagIds={review.tagIds}
+                                />
+                            ))
+                        }
                     </FlexLayout>
-                </Paper>
+                </FlexLayout>
             </ScreenLayout>
         </React.Fragment>
     );

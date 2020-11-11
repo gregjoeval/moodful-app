@@ -16,10 +16,10 @@ import React, { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { IReviewModel, ReviewModel, ReviewsDuck } from '../features/reviews';
-import { getISOStringWithOffset } from '../lib/Utilities';
-import { IGlobalState } from '../store/configureStore';
+import { getISOStringWithOffset } from '../../lib/Utilities';
+import { IGlobalState } from '../../store/configureStore';
 import ReviewFormFields from './ReviewFormFields';
+import { IReviewModel, ReviewModel, ReviewsDuck } from './index';
 
 const useStyles = makeStyles<Theme>((theme) => ({
     fab: {

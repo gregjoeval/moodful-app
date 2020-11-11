@@ -16,8 +16,6 @@ const AccountMenu: React.FunctionComponent<AccountMenuProps> = ({ anchorElement,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-    // const userModel = user as Record<string, string>;
-
     return isAuthenticated
         ? (
             <React.Fragment>

@@ -9,8 +9,8 @@ import { Rating, IconContainerProps, RatingProps } from '@material-ui/lab';
 import { Styles, withStyles } from '@material-ui/styles';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { IReviewModel } from '../features/reviews';
-import { nameOf } from '../lib/Utilities';
+import { nameOf } from '../../lib/Utilities';
+import { IReviewModel } from './index';
 
 const StyledRating: React.ComponentType<RatingProps> = withStyles<Styles<Theme, any>>((theme) => ({
     iconFilled: {
