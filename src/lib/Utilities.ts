@@ -1,3 +1,7 @@
+/**
+ * check that the NODE_ENV is not production because that variable can be set to other values
+ */
+export const isInDevBuildEnv = (): boolean => process.env.NODE_ENV !== 'production';
 
 export function isNil(value: unknown): value is null | undefined {
     // eslint-disable-next-line no-undefined
