@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ConfigurationDuck } from '../features/configuration';
 
-const AuthProvider: React.FunctionComponent = ({ children }) => {
+const AuthenticationProvider: React.FunctionComponent = ({ children }) => {
     const history = useHistory();
 
     const configurationModel = useSelector(ConfigurationDuck.Selectors.selectModel);
@@ -25,4 +25,4 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
     );
 };
 
-export default AuthProvider;
+export default AuthenticationProvider;

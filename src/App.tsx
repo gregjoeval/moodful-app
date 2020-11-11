@@ -1,22 +1,24 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as AppRouter, Route, Switch as RouterSwitch } from 'react-router-dom';
-import AuthProvider from './providers/AuthProvider';
-import ConfigProvider from './providers/ConfigProvider';
+import AuthenticationProvider from './providers/AuthenticationProvider';
+import ConfigurationProvider from './providers/ConfigurationProvider';
 import ThemeProvider from './providers/ThemeProvider';
 import AboutScreen from './screens/About';
 import NotFoundScreen from './screens/NotFound';
 import ReviewsScreen from './screens/Reviews';
 import TagsScreen from './screens/Tags';
-import store from './store/configureStore';
+import configureStore from './store/configureStore';
+
+const { store } = configureStore();
 
 function App(): JSX.Element {
     return (
         <AppRouter>
             <Provider store={store}>
-                <ConfigProvider>
-                    <ThemeProvider>
-                        <AuthProvider>
+                <ThemeProvider>
+                    <ConfigurationProvider>
+                        <AuthenticationProvider>
                             <RouterSwitch>
                                 <Route
                                     exact={true}
@@ -40,9 +42,9 @@ function App(): JSX.Element {
                                     <NotFoundScreen.Component />
                                 </Route>
                             </RouterSwitch>
-                        </AuthProvider>
-                    </ThemeProvider>
-                </ConfigProvider>
+                        </AuthenticationProvider>
+                    </ConfigurationProvider>
+                </ThemeProvider>
             </Provider>
         </AppRouter>
     );
