@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import ConfigurationReducer, { ConfigurationSliceState } from '../features/configuration';
 import ReviewsReducer, { ReviewsSliceState } from '../features/reviews';
 import TagsReducer, { TagsSliceState } from '../features/tags';
@@ -18,6 +18,14 @@ const reducers = {
     Reviews: ReviewsReducer,
     ReviewTags: TagsReducer
 };
+
+const logger = createLogger({
+    // TODO: You probably want the predicate to be based on an environment variable rather than NODE_ENV
+    predicate: (getState, action) => process.env.NODE_ENV !== 'production' && action?.meta?.debug !== false,
+    collapsed: true,
+    duration: true,
+    diff: true
+});
 
 const middleware = [...getDefaultMiddleware(), logger];
 
