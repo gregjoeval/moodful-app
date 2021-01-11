@@ -27,6 +27,14 @@ export const getAccessToken = (): string => {
     return accessToken;
 };
 
+export const getSubjectFromAccessToken = (): string | null => {
+    const accessToken = getToken();
+    if (accessToken === null) return null;
+
+    const { sub } = parseToken(accessToken);
+    return sub;
+};
+
 const intervalWithToken = 15 * 60 * 1000;
 const intervalWithoutToken = 3 * 1000;
 
@@ -44,7 +52,7 @@ const withJWT = <Props extends Record<string, unknown>> (Component: React.Compon
             const accessToken = await getAccessTokenSilently({
                 audience: configurationModel.MoodfulApiUri
             });
-            // eslint-disable-next-line no-console
+                // eslint-disable-next-line no-console
             console.debug('Obtained access token.');
             setToken(accessToken);
         } catch (e) {

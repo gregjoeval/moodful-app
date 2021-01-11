@@ -1,12 +1,12 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { FlexLayout } from '@gjv/material-ui-adjunct';
 import { Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header/Header';
 import { ReviewsDuck } from '../features/reviews';
 import CreateReviewFab from '../features/reviews/CreateReviewFab';
-import ReviewCard from '../features/reviews/ReviewCard';
+import ReviewCardAsync from '../features/reviews/ReviewCard';
 import withJWT from '../higher-order-components/WithJWT';
 import { ScreenLayout } from '../layouts';
 import ScreenModel from '../models/ScreenModel';
@@ -17,17 +17,15 @@ const Name = 'Reviews';
 const Reviews: React.FunctionComponent = () => {
     const dispatch = useDispatch();
 
-    const [flag, setFlag] = useState(false);
     const reviews = useSelector(ReviewsDuck.Selectors.selectAll);
     const reviewsCanMakeRequest = useSelector(ReviewsDuck.Selectors.selectCanMakeRequest);
     const reviewsWasHydrated = useSelector(ReviewsDuck.Selectors.selectWasHydrated);
 
     useEffect(() => {
-        if (!flag && reviewsCanMakeRequest && !reviewsWasHydrated) {
-            setFlag(true);
+        if (reviewsCanMakeRequest && !reviewsWasHydrated) {
             dispatch(ReviewsDuck.Actions.get());
         }
-    }, [dispatch, flag, reviewsCanMakeRequest, reviewsWasHydrated]);
+    }, [dispatch, reviewsCanMakeRequest, reviewsWasHydrated]);
 
     return (
         <React.Fragment>
@@ -46,7 +44,7 @@ const Reviews: React.FunctionComponent = () => {
                     >
                         {
                             reviews.map((review) => (
-                                <ReviewCard
+                                <ReviewCardAsync
                                     createdAt={review.createdAt}
                                     description={review.description}
                                     id={review.id}

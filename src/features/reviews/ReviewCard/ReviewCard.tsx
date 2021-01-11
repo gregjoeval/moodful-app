@@ -1,7 +1,7 @@
 import { Typography, Paper, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
-import { IReviewModel } from './ReviewModel';
+import { IReviewModel } from '../ReviewModel';
 
 const useStyles = makeStyles<Theme>((theme) => ({
     paper: {

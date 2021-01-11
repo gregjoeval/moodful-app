@@ -1,7 +1,7 @@
 import { Configuration as ClientConfiguration, ReviewsApi, TagsApi } from '@gjv/moodful-api-client';
 import { IReviewModel, ReviewModel } from '../features/reviews';
 import { ITagModel, TagModel } from '../features/tags';
-import { getAccessToken } from '../higher-order-components/WithJWT';
+import { getAccessToken, getSubjectFromAccessToken } from '../higher-order-components/WithJWT';
 import { getConfiguration } from './config';
 
 const createClientConfiguration = (): ClientConfiguration => {
@@ -21,8 +21,11 @@ export const getTags = async (): Promise<Array<ITagModel>> => {
     const clientConfiguration = createClientConfiguration();
     const api = new TagsApi(clientConfiguration);
 
+    const subject = getSubjectFromAccessToken();
+    if (subject === null) throw new Error('Unauthorized.');
+
     try {
-        const tags = await api.getTags();
+        const tags = await api.getTags({ userId: subject });
         return tags?.map((tag) => TagModel.mapReviewTagsToReviewTagModel(tag)) ?? [];
     } catch (err) {
         const response = err as Response;
@@ -36,8 +39,11 @@ export const getReviews = async (): Promise<Array<IReviewModel>> => {
     const clientConfiguration = createClientConfiguration();
     const api = new ReviewsApi(clientConfiguration);
 
+    const subject = getSubjectFromAccessToken();
+    if (subject === null) throw new Error('Unauthorized.');
+
     try {
-        const reviews = await api.getReviews();
+        const reviews = await api.getReviews({ userId: subject });
         return reviews?.map((review) => ReviewModel.mapReviewToReviewModel(review)) ?? [];
     } catch (err) {
         const response = err as Response;
@@ -51,6 +57,12 @@ export const createReview = async (model: IReviewModel): Promise<IReviewModel> =
     const clientConfiguration = createClientConfiguration();
     const api = new ReviewsApi(clientConfiguration);
 
-    const review = await api.postReviews({ review: ReviewModel.mapReviewModelToReview(model) });
+    const subject = getSubjectFromAccessToken();
+    if (subject === null) throw new Error('Unauthorized.');
+
+    const review = await api.postReviews({
+        userId: subject,
+        review: ReviewModel.mapReviewModelToReview(model)
+    });
     return ReviewModel.mapReviewToReviewModel(review);
 };
