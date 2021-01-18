@@ -69,11 +69,18 @@ const selectWasModified = createSelector(
     (status, lastModified) => status === StatusEnum.Settled && lastModified !== null
 );
 
+const selectShouldRequest = createSelector(
+    selectCanMakeRequest,
+    selectWasHydrated,
+    (canMakeRequest, wasHydrated) => canMakeRequest && !wasHydrated
+);
+
 const selectors = {
     ...slice.selectors,
     selectCanMakeRequest: selectCanMakeRequest,
     selectWasHydrated: selectWasHydrated,
-    selectWasModified: selectWasModified
+    selectWasModified: selectWasModified,
+    selectShouldRequest: selectShouldRequest
 };
 
 const ReviewsDuck: IDuck<SliceState, typeof actions, typeof selectors> = {

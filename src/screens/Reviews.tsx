@@ -1,13 +1,14 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { FlexLayout } from '@gjv/material-ui-adjunct';
 import { Typography } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import Header from '../components/Header/Header';
 import { ReviewsDuck } from '../features/reviews';
 import CreateReviewFab from '../features/reviews/CreateReviewFab';
 import ReviewCardAsync from '../features/reviews/ReviewCard';
 import withJWT from '../higher-order-components/WithJWT';
+import useRequester from '../hooks/UseRequester';
 import { ScreenLayout } from '../layouts';
 import ScreenModel from '../models/ScreenModel';
 
@@ -17,15 +18,7 @@ const Name = 'Reviews';
 const Reviews: React.FunctionComponent = () => {
     const dispatch = useDispatch();
 
-    const reviews = useSelector(ReviewsDuck.Selectors.selectAll);
-    const reviewsCanMakeRequest = useSelector(ReviewsDuck.Selectors.selectCanMakeRequest);
-    const reviewsWasHydrated = useSelector(ReviewsDuck.Selectors.selectWasHydrated);
-
-    useEffect(() => {
-        if (reviewsCanMakeRequest && !reviewsWasHydrated) {
-            dispatch(ReviewsDuck.Actions.get());
-        }
-    }, [dispatch, reviewsCanMakeRequest, reviewsWasHydrated]);
+    const reviews = useRequester(ReviewsDuck.Selectors.selectShouldRequest, () => dispatch(ReviewsDuck.Actions.get()), ReviewsDuck.Selectors.selectAll);
 
     return (
         <React.Fragment>
