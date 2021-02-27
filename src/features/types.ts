@@ -1,4 +1,4 @@
-import { Reducer } from '@reduxjs/toolkit';
+import { Reducer } from '@reduxjs/toolkit'
 
 export interface IDuck<TState, TActions, TSelectors> {
     Name: string;

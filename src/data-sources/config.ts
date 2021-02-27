@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-undefined */
-import { ConfigurationModel, IConfigurationModel } from '../features/configuration';
+import { ConfigurationModel, IConfigurationModel } from '../features/configuration'
 
-const configuration: IConfigurationModel | null = null;
+const configuration: IConfigurationModel | null = null
 
 export const getConfiguration = (): IConfigurationModel => {
     if (configuration === null) {
@@ -10,9 +10,9 @@ export const getConfiguration = (): IConfigurationModel => {
             GithubRepositoryUri: process.env.REACT_APP__GITHUB_REPOSITORY_URI,
             Auth0Domain: process.env.REACT_APP__AUTH0__DOMAIN,
             Auth0ClientId: process.env.REACT_APP__AUTH0__CLIENT_ID,
-            MoodfulApiUri: process.env.REACT_APP__MOODFUL_API__URI
-        });
+            MoodfulApiUri: process.env.REACT_APP__MOODFUL_API__URI,
+        })
     }
 
-    return configuration;
-};
+    return configuration
+}

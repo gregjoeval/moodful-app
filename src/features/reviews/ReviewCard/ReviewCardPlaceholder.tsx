@@ -1,5 +1,5 @@
-import { Skeleton } from '@material-ui/lab';
-import React from 'react';
+import { Skeleton } from '@material-ui/lab'
+import React from 'react'
 
 const ReviewCardPlaceholder: React.FunctionComponent = () => (
     <Skeleton
@@ -7,6 +7,6 @@ const ReviewCardPlaceholder: React.FunctionComponent = () => (
         variant={'rect'}
         width={'100%'}
     />
-);
+)
 
-export default ReviewCardPlaceholder;
+export default ReviewCardPlaceholder

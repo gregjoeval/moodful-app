@@ -1,11 +1,11 @@
-import { createEntitySlice, IEntityState, StatusEnum } from '@gjv/redux-slice-factory';
-import { createSelector, Dispatch, ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
-import moment from 'moment';
-import { createReview, getReviews } from '../../data-sources/moodful-api';
-import { mapErrorToSerializableObject } from '../../lib/Utilities';
-import { IGlobalState } from '../../store/configureStore';
-import { IDuck } from '../types';
-import { IReviewModel } from './ReviewModel';
+import { createEntitySlice, IEntityState, StatusEnum } from '@gjv/redux-slice-factory'
+import { createSelector, Dispatch, ThunkDispatch, AnyAction } from '@reduxjs/toolkit'
+import moment from 'moment'
+import { createReview, getReviews } from '../../data-sources/moodful-api'
+import { mapErrorToSerializableObject } from '../../lib/Utilities'
+import { IGlobalState } from '../../store/configureStore'
+import { IDuck } from '../types'
+import { IReviewModel } from './ReviewModel'
 
 type SliceModel = IReviewModel
 export type SliceState = IEntityState<SliceModel>
@@ -14,80 +14,61 @@ const slice = createEntitySlice<IGlobalState, SliceModel>({
     name: 'Reviews',
     selectSliceState: (globalState) => globalState.Reviews,
     selectId: (o) => o.id,
-    sortComparer: (a, b) => moment(a.createdAt).diff(b.createdAt, 'seconds')
-});
+    sortComparer: (a, b) => moment(a.createdAt).diff(b.createdAt, 'seconds'),
+})
 
 const get = () => async (dispatch: Dispatch): Promise<void> => {
-    dispatch(slice.actions.setStatus(StatusEnum.Requesting));
-    dispatch(slice.actions.setError(null));
+    dispatch(slice.actions.setStatus(StatusEnum.Requesting))
+    dispatch(slice.actions.setError(null))
 
     try {
-        const reviews = await getReviews();
-        dispatch(slice.actions.hydrateAll(reviews));
-        dispatch(slice.actions.setStatus(StatusEnum.Settled));
-    } catch (e) {
-        dispatch(slice.actions.setStatus(StatusEnum.Failed));
-        dispatch(slice.actions.setError(mapErrorToSerializableObject(e)));
+        const reviews = await getReviews()
+        dispatch(slice.actions.hydrateAll(reviews))
+        dispatch(slice.actions.setStatus(StatusEnum.Settled))
+    } catch (e: unknown) {
+        dispatch(slice.actions.setStatus(StatusEnum.Failed))
+        dispatch(slice.actions.setError(mapErrorToSerializableObject(e as Error)))
     }
-};
+}
 
 const create = (model: SliceModel) => async (dispatch: ThunkDispatch<IGlobalState, null, AnyAction>): Promise<void> => {
-    dispatch(slice.actions.setStatus(StatusEnum.Requesting));
-    dispatch(slice.actions.setError(null));
+    dispatch(slice.actions.setStatus(StatusEnum.Requesting))
+    dispatch(slice.actions.setError(null))
 
     try {
-        const review = await createReview(model);
-        dispatch(slice.actions.hydrateOne(review));
-        dispatch(slice.actions.setStatus(StatusEnum.Settled));
-    } catch (e) {
-        dispatch(slice.actions.setStatus(StatusEnum.Failed));
-        dispatch(slice.actions.setError(mapErrorToSerializableObject(e)));
+        const review = await createReview(model)
+        dispatch(slice.actions.hydrateOne(review))
+        dispatch(slice.actions.setStatus(StatusEnum.Settled))
+    } catch (e: unknown) {
+        dispatch(slice.actions.setStatus(StatusEnum.Failed))
+        dispatch(slice.actions.setError(mapErrorToSerializableObject(e as Error)))
     }
-};
+}
 
 const actions = {
     ...slice.actions,
     get: get,
-    create: create
-};
+    create: create,
+}
 
-const selectCanMakeRequest = createSelector(
+const selectShouldMakeRequest = createSelector(
     slice.selectors.selectStatus,
     slice.selectors.selectError,
-    (status, error) => status !== StatusEnum.Requesting && error === null
-);
-
-const selectWasHydrated = createSelector(
-    slice.selectors.selectStatus,
     slice.selectors.selectLastHydrated,
-    (status, lastHydrated) => status === StatusEnum.Settled && lastHydrated !== null
-);
-
-const selectWasModified = createSelector(
-    slice.selectors.selectStatus,
     slice.selectors.selectLastModified,
-    (status, lastModified) => status === StatusEnum.Settled && lastModified !== null
-);
-
-const selectShouldRequest = createSelector(
-    selectCanMakeRequest,
-    selectWasHydrated,
-    (canMakeRequest, wasHydrated) => canMakeRequest && !wasHydrated
-);
+    (status, error, lastHydrated, lastModified) => status === StatusEnum.Settled && error === null && lastHydrated === null && lastModified === null
+)
 
 const selectors = {
     ...slice.selectors,
-    selectCanMakeRequest: selectCanMakeRequest,
-    selectWasHydrated: selectWasHydrated,
-    selectWasModified: selectWasModified,
-    selectShouldRequest: selectShouldRequest
-};
+    selectShouldMakeRequest: selectShouldMakeRequest,
+}
 
 const ReviewsDuck: IDuck<SliceState, typeof actions, typeof selectors> = {
     Name: slice.name,
     Reducer: slice.reducer,
     Actions: actions,
-    Selectors: selectors
-};
+    Selectors: selectors,
+}
 
-export default ReviewsDuck;
+export default ReviewsDuck

@@ -1,10 +1,10 @@
-import React from 'react';
-import withSuspense from '../../../higher-order-components/WithSuspense';
-import ReviewCardPlaceholder from './ReviewCardPlaceholder';
+import React from 'react'
+import withSuspense from '../../../higher-order-components/WithSuspense'
+import ReviewCardPlaceholder from './ReviewCardPlaceholder'
 
 const ReviewCardAsync = withSuspense({
     factory: async () => import('./ReviewCard'),
-    fallback: <ReviewCardPlaceholder />
-});
+    fallback: <ReviewCardPlaceholder />,
+})
 
-export default ReviewCardAsync;
+export default ReviewCardAsync

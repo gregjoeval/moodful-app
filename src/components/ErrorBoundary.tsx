@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 interface IErrorBoundaryState {
     hasError: boolean;
@@ -15,32 +15,32 @@ interface IErrorBoundaryProps {
  */
 class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryState> {
     constructor(props: IErrorBoundaryProps) {
-        super(props);
-        this.state = { hasError: false };
+        super(props)
+        this.state = { hasError: false }
     }
 
     static getDerivedStateFromError(): IErrorBoundaryState {
         // Update state so the next render will show the fallback UI.
-        return { hasError: true };
+        return { hasError: true }
     }
 
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-        const { onError } = this.props;
+        const { onError } = this.props
         // You can also log the error to an error reporting service
         if (onError) {
-            onError(error, errorInfo);
+            onError(error, errorInfo)
         }
     }
 
     render(): React.ReactNode {
-        const { hasError } = this.state;
-        const { children, fallback } = this.props;
+        const { hasError } = this.state
+        const { children, fallback } = this.props
         if (hasError) {
-            return fallback;
+            return fallback
         }
 
-        return children;
+        return children
     }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary

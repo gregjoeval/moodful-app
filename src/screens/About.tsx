@@ -1,12 +1,12 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct';
-import { Typography } from '@material-ui/core';
-import React from 'react';
-import Header from '../components/Header/Header';
-import { ScreenLayout } from '../layouts';
-import ScreenModel from '../models/ScreenModel';
+import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Typography } from '@material-ui/core'
+import React from 'react'
+import Header from '../components/Header/Header'
+import { ScreenLayout } from '../layouts'
+import ScreenModel from '../models/ScreenModel'
 
-const Path = '/about';
-const Name = 'About';
+const Path = '/about'
+const Name = 'About'
 
 const About: React.FunctionComponent = () => (
     <ScreenLayout header={<Header />}>
@@ -28,12 +28,12 @@ const About: React.FunctionComponent = () => (
             </Typography>
         </FlexLayout>
     </ScreenLayout>
-);
+)
 
 const AboutScreen = ScreenModel.create({
     Component: About,
     Path: Path,
-    Name: Name
-});
+    Name: Name,
+})
 
-export default AboutScreen;
+export default AboutScreen

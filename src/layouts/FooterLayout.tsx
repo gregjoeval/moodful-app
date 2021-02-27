@@ -1,22 +1,22 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct';
-import { AppBar, Toolbar } from '@material-ui/core';
+import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { AppBar, Toolbar } from '@material-ui/core'
 import {
     GridContentAlignment,
     GridDirection,
     GridItemsAlignment,
     GridJustification,
-    GridSize, GridSpacing, GridWrap
-} from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/styles';
-import React from 'react';
-import SectionLayout from './SectionLayout';
+    GridSize, GridSpacing, GridWrap,
+} from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/styles'
+import React from 'react'
+import SectionLayout from './SectionLayout'
 
 const useStyles = makeStyles(() => ({
     footer: {
         top: 'auto',
-        bottom: 0
-    }
-}));
+        bottom: 0,
+    },
+}))
 
 type FooterLayoutProps = {
     alignContent?: GridContentAlignment;
@@ -31,7 +31,7 @@ type FooterLayoutProps = {
     md?: GridSize;
     lg?: GridSize;
     xl?: GridSize;
-};
+}
 
 const FooterLayout: React.FunctionComponent<FooterLayoutProps> = ({
     alignContent,
@@ -45,9 +45,9 @@ const FooterLayout: React.FunctionComponent<FooterLayoutProps> = ({
     sm = 12,
     md = 9,
     lg = 7,
-    xl = 5
+    xl = 5,
 }: FooterLayoutProps) => {
-    const classes = useStyles();
+    const classes = useStyles()
     return (
         <AppBar
             className={classes.footer}
@@ -76,7 +76,7 @@ const FooterLayout: React.FunctionComponent<FooterLayoutProps> = ({
                 </SectionLayout>
             </Toolbar>
         </AppBar>
-    );
-};
+    )
+}
 
-export default FooterLayout;
+export default FooterLayout
