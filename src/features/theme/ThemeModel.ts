@@ -1,6 +1,6 @@
-import { PaletteType, ThemeOptions } from '@material-ui/core';
-import _ from 'lodash';
-import themeDefaults from './themeDefaults.json';
+import { PaletteType, ThemeOptions } from '@material-ui/core'
+import _ from 'lodash'
+import themeDefaults from './themeDefaults.json'
 
 export interface IThemeModel {
     name: string;
@@ -28,17 +28,17 @@ const toMuiThemeOptions = (theme: IThemeModel): IThemeOptions => {
             error: theme.errorColor ? { main: theme.errorColor } : undefined,
             warning: theme.warningColor ? { main: theme.warningColor } : undefined,
             info: theme.infoColor ? { main: theme.infoColor } : undefined,
-            success: theme.successColor ? { main: theme.successColor } : undefined
+            success: theme.successColor ? { main: theme.successColor } : undefined,
             /* eslint-enable no-undefined */
-        }
-    };
+        },
+    }
 
     // themeDefaults generated with https://my-mui.com/
-    return _.merge<Record<string, unknown>, IThemeOptions>(themeDefaults, overrides);
-};
+    return _.merge<Record<string, unknown>, IThemeOptions>(themeDefaults, overrides)
+}
 
 const create = (args: Partial<IThemeModel>): IThemeModel => {
-    if (!args.name) throw new Error('Missing required property name on ITheme');
+    if (!args.name) throw new Error('Missing required property name on ITheme')
 
     return {
         name: args.name,
@@ -48,13 +48,13 @@ const create = (args: Partial<IThemeModel>): IThemeModel => {
         errorColor: args.errorColor,
         warningColor: args.warningColor,
         infoColor: args.infoColor,
-        successColor: args.successColor
-    };
-};
+        successColor: args.successColor,
+    }
+}
 
 const ThemeModel = {
     create: create,
-    toMuiThemeOptions: toMuiThemeOptions
-};
+    toMuiThemeOptions: toMuiThemeOptions,
+}
 
-export default ThemeModel;
+export default ThemeModel

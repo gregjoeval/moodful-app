@@ -1,16 +1,16 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as AppRouter, Route, Switch as RouterSwitch } from 'react-router-dom';
-import AuthenticationProvider from './providers/AuthenticationProvider';
-import ConfigurationProvider from './providers/ConfigurationProvider';
-import ThemeProvider from './providers/ThemeProvider';
-import AboutScreen from './screens/About';
-import NotFoundScreen from './screens/NotFound';
-import ReviewsScreen from './screens/Reviews';
-import TagsScreen from './screens/Tags';
-import configureStore from './store/configureStore';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter as AppRouter, Route, Switch as RouterSwitch } from 'react-router-dom'
+import AuthenticationProvider from './providers/AuthenticationProvider'
+import ConfigurationProvider from './providers/ConfigurationProvider'
+import ThemeProvider from './providers/ThemeProvider'
+import AboutScreen from './screens/About'
+import NotFoundScreen from './screens/NotFound'
+import ReviewsScreen from './screens/Reviews'
+import TagsScreen from './screens/Tags'
+import configureStore from './store/configureStore'
 
-const { store } = configureStore();
+const { store } = configureStore()
 
 function App(): JSX.Element {
     return (
@@ -47,7 +47,7 @@ function App(): JSX.Element {
                 </ThemeProvider>
             </Provider>
         </AppRouter>
-    );
+    )
 }
 
-export default App;
+export default App

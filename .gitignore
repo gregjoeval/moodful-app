@@ -34,3 +34,6 @@ build/
 
 #ignore Visual Studio Code config
 .vscode
+
+#ignore build folder
+.eslintcache

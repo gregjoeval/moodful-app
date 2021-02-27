@@ -1,13 +1,13 @@
-import { Auth0Provider } from '@auth0/auth0-react';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { ConfigurationDuck } from '../features/configuration';
+import { Auth0Provider } from '@auth0/auth0-react'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { ConfigurationDuck } from '../features/configuration'
 
 const AuthenticationProvider: React.FunctionComponent = ({ children }) => {
-    const history = useHistory();
+    const history = useHistory()
 
-    const configurationModel = useSelector(ConfigurationDuck.Selectors.selectModel);
+    const configurationModel = useSelector(ConfigurationDuck.Selectors.selectModel)
 
     return (
         <Auth0Provider
@@ -17,12 +17,12 @@ const AuthenticationProvider: React.FunctionComponent = ({ children }) => {
             redirectUri={window.location.origin}
             onRedirectCallback={(appState) => {
                 // Use the router's history module to replace the url
-                history.replace(appState?.returnTo ?? window.location.pathname);
+                history.replace(appState?.returnTo ?? window.location.pathname)
             }}
         >
             {children}
         </Auth0Provider>
-    );
-};
+    )
+}
 
-export default AuthenticationProvider;
+export default AuthenticationProvider

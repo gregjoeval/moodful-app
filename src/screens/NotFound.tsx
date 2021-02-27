@@ -1,12 +1,12 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct';
-import { Typography } from '@material-ui/core';
-import React from 'react';
-import Header from '../components/Header/Header';
-import { ScreenLayout } from '../layouts';
-import ScreenModel from '../models/ScreenModel';
+import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Typography } from '@material-ui/core'
+import React from 'react'
+import Header from '../components/Header/Header'
+import { ScreenLayout } from '../layouts'
+import ScreenModel from '../models/ScreenModel'
 
-const Path = '/not-found';
-const Name = 'Not Found';
+const Path = '/not-found'
+const Name = 'Not Found'
 
 const NotFound: React.FunctionComponent = () => (
     <ScreenLayout header={<Header />}>
@@ -22,12 +22,12 @@ const NotFound: React.FunctionComponent = () => (
             </Typography>
         </FlexLayout>
     </ScreenLayout>
-);
+)
 
 const NotFoundScreen = ScreenModel.create({
     Component: NotFound,
     Path: Path,
-    Name: Name
-});
+    Name: Name,
+})
 
-export default NotFoundScreen;
+export default NotFoundScreen

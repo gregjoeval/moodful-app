@@ -1,22 +1,22 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct';
-import { AppBar, Toolbar } from '@material-ui/core';
+import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { AppBar, Toolbar } from '@material-ui/core'
 import {
     GridContentAlignment,
     GridDirection,
     GridItemsAlignment,
     GridJustification,
-    GridSize, GridSpacing, GridWrap
-} from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/styles';
-import React from 'react';
-import SectionLayout from './SectionLayout';
+    GridSize, GridSpacing, GridWrap,
+} from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/styles'
+import React from 'react'
+import SectionLayout from './SectionLayout'
 
 const useStyles = makeStyles(() => ({
     header: {
         top: 0,
-        bottom: 'auto'
-    }
-}));
+        bottom: 'auto',
+    },
+}))
 
 type HeaderLayoutProps = {
     alignContent?: GridContentAlignment;
@@ -30,7 +30,7 @@ type HeaderLayoutProps = {
     md?: GridSize;
     lg?: GridSize;
     xl?: GridSize;
-};
+}
 
 const HeaderLayout: React.FunctionComponent<HeaderLayoutProps> = ({
     alignContent,
@@ -44,9 +44,9 @@ const HeaderLayout: React.FunctionComponent<HeaderLayoutProps> = ({
     sm = 12,
     md = 12,
     lg = 10,
-    xl = 8
+    xl = 8,
 }) => {
-    const classes = useStyles();
+    const classes = useStyles()
     return (
         <AppBar
             className={classes.header}
@@ -75,7 +75,7 @@ const HeaderLayout: React.FunctionComponent<HeaderLayoutProps> = ({
                 </SectionLayout>
             </Toolbar>
         </AppBar>
-    );
-};
+    )
+}
 
-export default HeaderLayout;
+export default HeaderLayout

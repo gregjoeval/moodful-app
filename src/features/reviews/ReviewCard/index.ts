@@ -1,11 +1,11 @@
-import ReviewCard from './ReviewCard';
-import ReviewCardAsync from './ReviewCardAsync';
-import ReviewCardPlaceholder from './ReviewCardPlaceholder';
+import ReviewCard from './ReviewCard'
+import ReviewCardAsync from './ReviewCardAsync'
+import ReviewCardPlaceholder from './ReviewCardPlaceholder'
 
 export {
     ReviewCard,
     ReviewCardAsync,
-    ReviewCardPlaceholder
-};
+    ReviewCardPlaceholder,
+}
 
-export default ReviewCardAsync;
+export default ReviewCardAsync

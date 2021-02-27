@@ -12,9 +12,8 @@
     "project": "./tsconfig.json"
   },
   "extends": [
-    "@gjv/eslint-config",
-    "@gjv/eslint-config-typescript",
-    "@gjv/eslint-config-react"
+    "@gjv/eslint-config-react",
+    "@gjv/eslint-config-typescript"
   ],
   "rules": {
     // https://github.com/typescript-eslint/typescript-eslint/issues/2540#issuecomment-692866111

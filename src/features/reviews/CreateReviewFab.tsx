@@ -1,4 +1,4 @@
-import { StatusEnum } from '@gjv/redux-slice-factory';
+import { StatusEnum } from '@gjv/redux-slice-factory'
 import {
     Fab,
     Theme,
@@ -7,39 +7,39 @@ import {
     DialogContent,
     DialogActions,
     Button,
-    CircularProgress
-} from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/styles';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import React, { useCallback, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuid } from 'uuid';
-import { getISOStringWithOffset } from '../../lib/Utilities';
-import { IGlobalState } from '../../store/configureStore';
-import ReviewFormFields from './ReviewFormFields';
-import { IReviewModel, ReviewModel, ReviewsDuck } from './index';
+    CircularProgress,
+} from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import { makeStyles } from '@material-ui/styles'
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit'
+import React, { useCallback, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { v4 as uuid } from 'uuid'
+import { getISOStringWithOffset } from '../../lib/Utilities'
+import { IGlobalState } from '../../store/configureStore'
+import ReviewFormFields from './ReviewFormFields'
+import { IReviewModel, ReviewModel, ReviewsDuck } from './index'
 
 const useStyles = makeStyles<Theme>((theme) => ({
     fab: {
         position: 'fixed',
         bottom: theme.spacing(4),
-        right: theme.spacing(4)
-    }
-}));
+        right: theme.spacing(4),
+    },
+}))
 
-const dialogId = 'review-dialog';
+const dialogId = 'review-dialog'
 
 const CreateReviewFab: React.FunctionComponent = () => {
-    const classes = useStyles();
-    const dispatch = useDispatch<ThunkDispatch<IGlobalState, null, AnyAction>>();
-    const methods = useForm<IReviewModel>();
-    const [openDialogId, setOpenDialogId] = useState<string | null>(null);
-    const reviewsSliceState = useSelector(ReviewsDuck.Selectors.selectSliceState);
+    const classes = useStyles()
+    const dispatch = useDispatch<ThunkDispatch<IGlobalState, null, AnyAction>>()
+    const methods = useForm<IReviewModel>()
+    const [openDialogId, setOpenDialogId] = useState<string | null>(null)
+    const reviewsSliceState = useSelector(ReviewsDuck.Selectors.selectSliceState)
 
     const onSubmit = useCallback((model: IReviewModel) => {
-        const timestamp = getISOStringWithOffset();
+        const timestamp = getISOStringWithOffset()
         const review = ReviewModel.create({
             id: model.id ?? uuid(),
             createdAt: model.createdAt ?? timestamp,
@@ -47,11 +47,11 @@ const CreateReviewFab: React.FunctionComponent = () => {
             rating: model.rating,
             description: model.description,
             secret: model.secret,
-            tagIds: model.tagIds
-        });
-        void dispatch(ReviewsDuck.Actions.create(review));
-        setOpenDialogId(null);
-    }, [dispatch]);
+            tagIds: model.tagIds,
+        })
+        void dispatch(ReviewsDuck.Actions.create(review))
+        setOpenDialogId(null)
+    }, [dispatch])
 
     return (
         <React.Fragment>
@@ -59,7 +59,7 @@ const CreateReviewFab: React.FunctionComponent = () => {
                 className={classes.fab}
                 color={'primary'}
                 onClick={() => {
-                    setOpenDialogId(dialogId);
+                    setOpenDialogId(dialogId)
                 }}
             >
                 <AddIcon color={'action'} />
@@ -108,7 +108,7 @@ const CreateReviewFab: React.FunctionComponent = () => {
                 </form>
             </Dialog>
         </React.Fragment>
-    );
-};
+    )
+}
 
-export default CreateReviewFab;
+export default CreateReviewFab

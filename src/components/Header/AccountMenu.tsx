@@ -1,20 +1,20 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { Button, IconButton, MenuItem, Menu } from '@material-ui/core';
-import { AccountCircle as AccountCircleIcon } from '@material-ui/icons';
-import React from 'react';
-import ReviewsScreen from '../../screens/Reviews';
+import { useAuth0 } from '@auth0/auth0-react'
+import { Button, IconButton, MenuItem, Menu } from '@material-ui/core'
+import { AccountCircle as AccountCircleIcon } from '@material-ui/icons'
+import React from 'react'
+import ReviewsScreen from '../../screens/Reviews'
 
 type AccountMenuProps = {
     anchorElement: Element | null;
     id?: string;
     onClose: React.MouseEventHandler;
     onOpen: React.MouseEventHandler;
-};
+}
 
 const AccountMenu: React.FunctionComponent<AccountMenuProps> = ({ anchorElement, id = 'account-menu-id', onClose, onOpen }) => {
     // TODO find way to remove this
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+    const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
     return isAuthenticated
         ? (
@@ -51,7 +51,7 @@ const AccountMenu: React.FunctionComponent<AccountMenuProps> = ({ anchorElement,
             <Button onClick={async () => loginWithRedirect({ redirectUri: `${window.location.origin}${ReviewsScreen.Path}` })}>
                 {'Login'}
             </Button>
-        );
-};
+        )
+}
 
-export default AccountMenu;
+export default AccountMenu

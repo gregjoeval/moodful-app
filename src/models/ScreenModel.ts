@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 interface IScreenModelArguments<ScreenProps> extends Omit<IScreenModel<ScreenProps>, 'Icon'> {
     Icon?: JSX.Element;
@@ -15,11 +15,11 @@ const create = <ScreenProps> (args: IScreenModelArguments<ScreenProps>): Readonl
     Component: args.Component,
     Path: args.Path,
     Name: args.Name,
-    Icon: args.Icon
-});
+    Icon: args.Icon,
+})
 
 const ScreenModel = {
-    create: create
-};
+    create: create,
+}
 
-export default ScreenModel;
+export default ScreenModel

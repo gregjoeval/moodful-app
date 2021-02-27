@@ -1,13 +1,13 @@
-import { Grid, Theme } from '@material-ui/core';
-import { GridSize } from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/styles';
-import React from 'react';
+import { Grid, Theme } from '@material-ui/core'
+import { GridSize } from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/styles'
+import React from 'react'
 
 const useStyles = makeStyles<Theme>((theme) => ({
     sectionPadding: {
-        padding: theme.spacing(0, 1)
-    }
-}));
+        padding: theme.spacing(0, 1),
+    },
+}))
 
 type SectionLayoutProps = {
     children: React.ReactNode;
@@ -17,7 +17,7 @@ type SectionLayoutProps = {
     md: GridSize;
     lg: GridSize;
     xl: GridSize;
-};
+}
 
 const SectionLayout: React.FunctionComponent<SectionLayoutProps> = ({
     children,
@@ -26,9 +26,9 @@ const SectionLayout: React.FunctionComponent<SectionLayoutProps> = ({
     sm = 'auto',
     md = 'auto',
     lg = 'auto',
-    xl = 'auto'
+    xl = 'auto',
 }: SectionLayoutProps) => {
-    const classes = useStyles();
+    const classes = useStyles()
     return (
         <Grid
             alignItems={'stretch'}
@@ -50,7 +50,7 @@ const SectionLayout: React.FunctionComponent<SectionLayoutProps> = ({
                 {children}
             </Grid>
         </Grid>
-    );
-};
+    )
+}
 
-export default SectionLayout;
+export default SectionLayout
