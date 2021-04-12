@@ -26,14 +26,14 @@ const create = (args: Partial<IReviewModel> = {}): IReviewModel => {
     }
 }
 
-const mapReviewToReviewModel = (model: Review): IReviewModel => create({
+const mapFromApiModel = (model: Review): IReviewModel => create({
     ...model, // TODO: map the props, this is lazy
     // eslint-disable-next-line no-undefined
     createdAt: isNil(model.createdAt) ? undefined : getISOStringWithOffset(model.createdAt),
     lastModified: isNil(model.lastModified) ? null : getISOStringWithOffset(model.lastModified),
 })
 
-const mapReviewModelToReview = (model: IReviewModel): Review => ({
+const mapToApiModel = (model: IReviewModel): Review => ({
     ...model, // TODO: map the props, this is lazy
     createdAt: moment(model.createdAt).toDate(),
     lastModified: isNil(model.lastModified) ? null : moment(model.lastModified).toDate(),
@@ -41,8 +41,8 @@ const mapReviewModelToReview = (model: IReviewModel): Review => ({
 
 const ReviewModel = {
     create: create,
-    mapReviewToReviewModel: mapReviewToReviewModel,
-    mapReviewModelToReview: mapReviewModelToReview,
+    mapFromApiModel: mapFromApiModel,
+    mapToApiModel: mapToApiModel,
 }
 
 export default ReviewModel

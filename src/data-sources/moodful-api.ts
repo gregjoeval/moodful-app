@@ -26,13 +26,41 @@ export const getTags = async (): Promise<Array<ITagModel>> => {
 
     try {
         const tags = await api.getTags({ userId: subject })
-        return tags?.map((tag) => TagModel.mapReviewTagsToReviewTagModel(tag)) ?? []
+        return tags?.map((tag) => TagModel.mapFromApiModel(tag)) ?? []
     } catch (err: unknown) {
         const response = err as Response
         if (response.status === 404) return []
 
         throw response
     }
+}
+
+export const createTag = async (model: ITagModel): Promise<ITagModel> => {
+    const clientConfiguration = createClientConfiguration()
+    const api = new TagsApi(clientConfiguration)
+
+    const subject = getSubjectFromAccessToken()
+    if (subject === null) throw new Error('Unauthorized.')
+
+    const review = await api.postTags({
+        userId: subject,
+        tag: TagModel.mapToApiModel(model),
+    })
+
+    return TagModel.mapFromApiModel(review)
+}
+
+export const deleteTag = async (id: ITagModel['id']): Promise<void> => {
+    const clientConfiguration = createClientConfiguration()
+    const api = new TagsApi(clientConfiguration)
+
+    const subject = getSubjectFromAccessToken()
+    if (subject === null) throw new Error('Unauthorized.')
+
+    await api.deleteTags({
+        userId: subject,
+        id: id,
+    })
 }
 
 export const getReviews = async (): Promise<Array<IReviewModel>> => {
@@ -44,7 +72,7 @@ export const getReviews = async (): Promise<Array<IReviewModel>> => {
 
     try {
         const reviews = await api.getReviews({ userId: subject })
-        return reviews?.map((review) => ReviewModel.mapReviewToReviewModel(review)) ?? []
+        return reviews?.map((review) => ReviewModel.mapFromApiModel(review)) ?? []
     } catch (err: unknown) {
         const response = err as Response
         if (response.status === 404) return []
@@ -62,7 +90,8 @@ export const createReview = async (model: IReviewModel): Promise<IReviewModel> =
 
     const review = await api.postReviews({
         userId: subject,
-        review: ReviewModel.mapReviewModelToReview(model),
+        review: ReviewModel.mapToApiModel(model),
     })
-    return ReviewModel.mapReviewToReviewModel(review)
+
+    return ReviewModel.mapFromApiModel(review)
 }

@@ -9,7 +9,10 @@ import { Rating, IconContainerProps, RatingProps } from '@material-ui/lab'
 import { withStyles } from '@material-ui/styles'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { nameOf } from '../../lib/Utilities'
+import { TagsDuck } from '../tags'
+import TagsAutocomplete from '../tags/TagsAutocomplete'
 import { IReviewModel } from './index'
 
 const StyledRating: React.ComponentType<RatingProps> = withStyles((theme: Theme) => ({
@@ -52,9 +55,9 @@ function IconContainer(props: IconContainerProps): JSX.Element {
 type FormModel = IReviewModel
 
 const ReviewFormFields: React.FunctionComponent = () => {
+    const tags = useSelector(TagsDuck.Selectors.selectAll)
     const methods = useFormContext<FormModel>()
 
-    /* eslint-disable react/jsx-sort-props */
     return (
         <FlexLayout
             direction={'column'}
@@ -75,6 +78,26 @@ const ReviewFormFields: React.FunctionComponent = () => {
                     required: true,
                 }}
             />
+            <Controller
+                control={methods.control}
+                defaultValue={methods.watch(nameOf<FormModel>('tagIds')) ?? []}
+                name={nameOf<FormModel>('tagIds')}
+                render={({ onChange, value }) => (
+                    <TagsAutocomplete
+                        label={'Tags'}
+                        limitTags={4}
+                        // TODO: figure out how to make Controller type-safe
+                        /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+                        value={tags.filter((tag) => value.includes(tag.id))}
+                        onChange={(e, value) => {
+                            onChange(value.map((option) => option.id))
+                        }}
+                    />
+                )}
+                rules={{
+                    required: true,
+                }}
+            />
             <TextField
                 error={Boolean(methods.errors.description?.message)}
                 helperText={methods.errors.description?.message}
@@ -86,7 +109,6 @@ const ReviewFormFields: React.FunctionComponent = () => {
             />
         </FlexLayout>
     )
-    /* eslint-enable react/jsx-sort-props */
 }
 
 export default ReviewFormFields
