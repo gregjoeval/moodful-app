@@ -41,4 +41,4 @@ export const mapErrorToSerializableObject = <TError extends Error = Error> (erro
  * SOURCE: https://schneidenbach.gitbooks.io/typescript-cookbook/nameof-operator.html
  * @param name
  */
-export const nameOf = <T>(name: keyof T & string): string => name
+export const nameOf = <T>(name: keyof T & string): keyof T => name
