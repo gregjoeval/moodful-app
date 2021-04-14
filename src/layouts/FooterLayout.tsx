@@ -1,4 +1,4 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { AppBar, Toolbar } from '@material-ui/core'
 import {
     GridContentAlignment,
@@ -63,7 +63,7 @@ const FooterLayout: React.FunctionComponent<FooterLayoutProps> = ({
                     xl={xl}
                     xs={xs}
                 >
-                    <FlexLayout
+                    <Stack
                         alignContent={alignContent}
                         alignItems={alignItems}
                         direction={direction}
@@ -72,7 +72,7 @@ const FooterLayout: React.FunctionComponent<FooterLayoutProps> = ({
                         wrap={wrap}
                     >
                         {children}
-                    </FlexLayout>
+                    </Stack>
                 </SectionLayout>
             </Toolbar>
         </AppBar>

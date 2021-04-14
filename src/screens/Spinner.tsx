@@ -1,4 +1,4 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { CircularProgress, Theme, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
@@ -26,7 +26,7 @@ const Spinner: React.FunctionComponent<ISpinnerProps> = ({ header, debugMessage 
     const classes = useStyles()
     return (
         <ScreenLayout header={header}>
-            <FlexLayout
+            <Stack
                 direction={'column'}
                 spacing={3}
             >
@@ -42,7 +42,7 @@ const Spinner: React.FunctionComponent<ISpinnerProps> = ({ header, debugMessage 
                         {isInDevBuildEnv() ? debugMessage : ''}
                     </Typography>
                 </div>
-            </FlexLayout>
+            </Stack>
         </ScreenLayout>
     )
 }

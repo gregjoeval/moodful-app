@@ -1,4 +1,4 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { TextField, Theme } from '@material-ui/core'
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied'
@@ -59,7 +59,7 @@ const ReviewFormFields: React.FunctionComponent = () => {
     const methods = useFormContext<FormModel>()
 
     return (
-        <FlexLayout
+        <Stack
             direction={'column'}
             spacing={2}
         >
@@ -107,7 +107,7 @@ const ReviewFormFields: React.FunctionComponent = () => {
                 name={nameOf<FormModel>('description')}
                 variant={'outlined'}
             />
-        </FlexLayout>
+        </Stack>
     )
 }
 

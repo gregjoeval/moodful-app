@@ -1,4 +1,4 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { Typography } from '@material-ui/core'
 import React from 'react'
 import Header from '../components/Header/Header'
@@ -10,7 +10,7 @@ const Name = 'Not Found'
 
 const NotFound: React.FunctionComponent = () => (
     <ScreenLayout header={<Header />}>
-        <FlexLayout
+        <Stack
             direction={'column'}
             spacing={1}
         >
@@ -20,7 +20,7 @@ const NotFound: React.FunctionComponent = () => (
             <Typography variant={'body1'}>
                 {'Oops, we couldn\'t find the page you were looking for...'}
             </Typography>
-        </FlexLayout>
+        </Stack>
     </ScreenLayout>
 )
 
