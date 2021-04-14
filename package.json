@@ -55,8 +55,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@gjv/eslint-config-react": "^0.6.2",
-    "@gjv/eslint-config-typescript": "^0.6.1",
+    "@gjv/eslint-config-react": "^0.7.2",
+    "@gjv/eslint-config-typescript": "^0.7.2",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.2",
