@@ -60,6 +60,7 @@ const ReviewFormFields: React.FunctionComponent = () => {
 
     return (
         <Stack
+            alignItems={'center'}
             direction={'column'}
             spacing={2}
         >

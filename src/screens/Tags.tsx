@@ -29,6 +29,7 @@ const Tags: React.FunctionComponent = () => {
             <CreateTagFab />
             <ScreenLayout header={<Header />}>
                 <Stack
+                    alignItems={'center'}
                     direction={'column'}
                     spacing={1}
                 >

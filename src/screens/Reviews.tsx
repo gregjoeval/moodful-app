@@ -29,6 +29,7 @@ const Reviews: React.FunctionComponent = () => {
             <CreateReviewFab />
             <ScreenLayout header={<Header />}>
                 <Stack
+                    alignItems={'center'}
                     direction={'column'}
                     spacing={1}
                 >
@@ -36,6 +37,7 @@ const Reviews: React.FunctionComponent = () => {
                         {Name}
                     </Typography>
                     <Stack
+                        alignItems={'center'}
                         direction={'column'}
                         spacing={1}
                     >

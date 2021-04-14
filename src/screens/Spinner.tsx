@@ -27,6 +27,7 @@ const Spinner: React.FunctionComponent<ISpinnerProps> = ({ header, debugMessage 
     return (
         <ScreenLayout header={header}>
             <Stack
+                alignItems={'center'}
                 direction={'column'}
                 spacing={3}
             >

@@ -11,6 +11,7 @@ const Name = 'Not Found'
 const NotFound: React.FunctionComponent = () => (
     <ScreenLayout header={<Header />}>
         <Stack
+            alignItems={'center'}
             direction={'column'}
             spacing={1}
         >
