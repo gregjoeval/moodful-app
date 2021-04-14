@@ -1,5 +1,5 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { Typography } from '@material-ui/core'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -28,14 +28,16 @@ const Reviews: React.FunctionComponent = () => {
         <React.Fragment>
             <CreateReviewFab />
             <ScreenLayout header={<Header />}>
-                <FlexLayout
+                <Stack
+                    alignItems={'center'}
                     direction={'column'}
                     spacing={1}
                 >
                     <Typography variant={'h5'}>
                         {Name}
                     </Typography>
-                    <FlexLayout
+                    <Stack
+                        alignItems={'center'}
                         direction={'column'}
                         spacing={1}
                     >
@@ -53,8 +55,8 @@ const Reviews: React.FunctionComponent = () => {
                                 />
                             ))
                         }
-                    </FlexLayout>
-                </FlexLayout>
+                    </Stack>
+                </Stack>
             </ScreenLayout>
         </React.Fragment>
     )

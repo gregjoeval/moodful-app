@@ -1,5 +1,5 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { Typography } from '@material-ui/core'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -28,7 +28,8 @@ const Tags: React.FunctionComponent = () => {
         <React.Fragment>
             <CreateTagFab />
             <ScreenLayout header={<Header />}>
-                <FlexLayout
+                <Stack
+                    alignItems={'center'}
                     direction={'column'}
                     spacing={1}
                 >
@@ -46,7 +47,7 @@ const Tags: React.FunctionComponent = () => {
                             }}
                         />
                     ))}
-                </FlexLayout>
+                </Stack>
             </ScreenLayout>
         </React.Fragment>
     )

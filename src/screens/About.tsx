@@ -1,4 +1,4 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { Typography } from '@material-ui/core'
 import React from 'react'
 import Header from '../components/Header/Header'
@@ -10,7 +10,8 @@ const Name = 'About'
 
 const About: React.FunctionComponent = () => (
     <ScreenLayout header={<Header />}>
-        <FlexLayout
+        <Stack
+            alignItems={'center'}
             direction={'column'}
             spacing={1}
         >
@@ -26,7 +27,7 @@ const About: React.FunctionComponent = () => (
             <Typography variant={'body1'}>
                 {'Work in progress.'}
             </Typography>
-        </FlexLayout>
+        </Stack>
     </ScreenLayout>
 )
 

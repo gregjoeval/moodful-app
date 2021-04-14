@@ -35,10 +35,7 @@ function App(): JSX.Element {
                                 <Route path={[TagsScreen.Path]}>
                                     <TagsScreen.Component />
                                 </Route>
-                                <Route
-                                    path={['*']}
-                                    status={404}
-                                >
+                                <Route path={['*']}>
                                     <NotFoundScreen.Component />
                                 </Route>
                             </RouterSwitch>

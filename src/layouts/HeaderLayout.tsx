@@ -1,4 +1,4 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { AppBar, Toolbar } from '@material-ui/core'
 import {
     GridContentAlignment,
@@ -62,7 +62,7 @@ const HeaderLayout: React.FunctionComponent<HeaderLayoutProps> = ({
                     xl={xl}
                     xs={xs}
                 >
-                    <FlexLayout
+                    <Stack
                         alignContent={alignContent}
                         alignItems={alignItems}
                         direction={direction}
@@ -71,7 +71,7 @@ const HeaderLayout: React.FunctionComponent<HeaderLayoutProps> = ({
                         wrap={wrap}
                     >
                         {children}
-                    </FlexLayout>
+                    </Stack>
                 </SectionLayout>
             </Toolbar>
         </AppBar>

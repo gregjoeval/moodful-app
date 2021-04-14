@@ -1,4 +1,4 @@
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { TextField, useTheme } from '@material-ui/core'
 import { PaletteColor } from '@material-ui/core/styles/createPalette'
 import React, { useEffect, useMemo } from 'react'
@@ -23,7 +23,8 @@ const TagFormFields: React.FunctionComponent = () => {
     const paletteColor = useMemo((): PaletteColor | null => (color && color.length > 0 ? theme.palette.augmentColor({ main: color }) : null), [color, theme.palette])
 
     return (
-        <FlexLayout
+        <Stack
+            alignItems={'center'}
             direction={'column'}
             spacing={2}
         >
@@ -66,7 +67,7 @@ const TagFormFields: React.FunctionComponent = () => {
                 name={nameOf<FormModel>('title')}
                 variant={'outlined'}
             />
-        </FlexLayout>
+        </Stack>
     )
 }
 

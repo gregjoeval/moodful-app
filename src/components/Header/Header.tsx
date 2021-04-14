@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { FlexLayout } from '@gjv/material-ui-adjunct'
+import { Stack } from '@gjv/material-ui-adjunct'
 import { IconButton, Link, Tooltip, Typography } from '@material-ui/core'
 import { Brightness2 as DarkThemeIcon, Brightness6 as LightThemeIcon } from '@material-ui/icons'
 import React, { useState } from 'react'
@@ -26,7 +26,7 @@ const Header: React.FunctionComponent = () => {
             alignItems={'center'}
             justify={'space-between'}
         >
-            <FlexLayout
+            <Stack
                 alignItems={'center'}
                 direction={'row'}
                 spacing={1}
@@ -77,8 +77,8 @@ const Header: React.FunctionComponent = () => {
                         </Link>
                     )
                 }
-            </FlexLayout>
-            <FlexLayout
+            </Stack>
+            <Stack
                 alignItems={'center'}
                 direction={'row'}
             >
@@ -98,7 +98,7 @@ const Header: React.FunctionComponent = () => {
                     onClose={() => setAccountMenuAnchorElement(null)}
                     onOpen={(event) => setAccountMenuAnchorElement(event.currentTarget)}
                 />
-            </FlexLayout>
+            </Stack>
         </HeaderLayout>
     )
 }
