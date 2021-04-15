@@ -1,5 +1,5 @@
 import { createEntitySlice, IEntityState, StatusEnum } from '@gjv/redux-slice-factory'
-import { AnyAction, createSelector, Dispatch, ThunkDispatch } from '@reduxjs/toolkit'
+import { AnyAction, Dispatch, ThunkDispatch } from '@reduxjs/toolkit'
 import moment from 'moment'
 import { createTag, deleteTag, getTags } from '../../data-sources/moodful-api'
 import { mapErrorToSerializableObject } from '../../lib/Utilities'
@@ -66,17 +66,8 @@ const actions = {
     remove: remove,
 }
 
-const selectShouldMakeRequest = createSelector(
-    slice.selectors.selectStatus,
-    slice.selectors.selectError,
-    slice.selectors.selectLastHydrated,
-    slice.selectors.selectLastModified,
-    (status, error, lastHydrated, lastModified) => status === StatusEnum.Settled && error === null && lastHydrated === null && lastModified === null
-)
-
 const selectors = {
     ...slice.selectors,
-    selectShouldMakeRequest: selectShouldMakeRequest,
 }
 
 const TagsDuck: IDuck<SliceState, typeof actions, typeof selectors> = {

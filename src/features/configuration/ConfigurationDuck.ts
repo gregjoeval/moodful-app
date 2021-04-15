@@ -1,5 +1,5 @@
 import { createModelSlice, IModelState, StatusEnum } from '@gjv/redux-slice-factory'
-import { createSelector, Dispatch } from '@reduxjs/toolkit'
+import { Dispatch } from '@reduxjs/toolkit'
 import { getConfiguration } from '../../data-sources/config'
 import { IGlobalState } from '../../store/configureStore'
 import { IDuck } from '../types'
@@ -32,17 +32,8 @@ const actions = {
     get: get,
 }
 
-const selectShouldMakeRequest = createSelector(
-    slice.selectors.selectStatus,
-    slice.selectors.selectError,
-    slice.selectors.selectLastHydrated,
-    slice.selectors.selectLastModified,
-    (status, error, lastHydrated, lastModified) => status === StatusEnum.Settled && error === null && lastHydrated === null && lastModified === null
-)
-
 const selectors = {
     ...slice.selectors,
-    selectShouldMakeRequest: selectShouldMakeRequest,
 }
 
 const ConfigurationDuck: IDuck<SliceState, typeof actions, typeof selectors> = {

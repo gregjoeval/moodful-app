@@ -19,7 +19,7 @@ const Tags: React.FunctionComponent = () => {
     const dispatch = useDispatch()
 
     const tags = useRequester(
-        TagsDuck.Selectors.selectShouldMakeRequest,
+        TagsDuck.Selectors.selectShouldRequest,
         TagsDuck.Selectors.selectAll,
         () => dispatch(TagsDuck.Actions.get())
     )

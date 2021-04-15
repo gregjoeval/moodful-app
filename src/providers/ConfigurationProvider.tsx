@@ -9,7 +9,7 @@ const ConfigurationProvider: React.FunctionComponent = ({ children }) => {
     const dispatch = useDispatch()
 
     const configuration = useRequester(
-        ConfigurationDuck.Selectors.selectShouldMakeRequest,
+        ConfigurationDuck.Selectors.selectShouldRequest,
         ConfigurationDuck.Selectors.selectSliceState,
         () => dispatch(ConfigurationDuck.Actions.get())
     )

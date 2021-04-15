@@ -45,7 +45,7 @@ const TagsAutocomplete: React.FunctionComponent<ITagsAutocompleteProps<Autocompl
     const isLoading = useMemo(() => status === StatusEnum.Requesting, [status])
 
     const data = useRequester(
-        TagsDuck.Selectors.selectShouldMakeRequest,
+        TagsDuck.Selectors.selectShouldRequest,
         TagsDuck.Selectors.selectAll,
         () => dispatch(TagsDuck.Actions.get())
     )

@@ -19,7 +19,7 @@ const Reviews: React.FunctionComponent = () => {
     const dispatch = useDispatch()
 
     const reviews = useRequester(
-        ReviewsDuck.Selectors.selectShouldMakeRequest,
+        ReviewsDuck.Selectors.selectShouldRequest,
         ReviewsDuck.Selectors.selectAll,
         () => dispatch(ReviewsDuck.Actions.get())
     )
