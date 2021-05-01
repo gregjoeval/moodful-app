@@ -1,5 +1,5 @@
 import { Tag } from '@gjv/moodful-api-client'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import { isNil } from '../../lib/Utilities'
 
 export interface ITagModel {
@@ -31,13 +31,13 @@ const mapFromApiModel = (model: Tag): ITagModel => create({
 })
 
 const mapToApiModel = (model: ITagModel): Tag => ({
+    /* eslint-disable no-undefined */
     ...model, // TODO: map the props, this is lazy
-    // eslint-disable-next-line no-undefined
     avatar: model.avatar ?? undefined,
-    // eslint-disable-next-line no-undefined
     color: model.color ?? undefined,
-    createdAt: moment(model.createdAt).toDate(),
-    lastModified: isNil(model.lastModified) ? null : moment(model.lastModified).toDate(),
+    createdAt: isNil(model.createdAt) ? undefined : DateTime.fromISO(model.createdAt).toJSDate(),
+    lastModified: isNil(model.lastModified) ? null : DateTime.fromISO(model.lastModified).toJSDate(),
+    /* eslint-enable no-undefined */
 })
 
 const TagModel = {

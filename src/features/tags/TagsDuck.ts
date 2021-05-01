@@ -1,8 +1,8 @@
 import { createEntitySlice, IEntityState, StatusEnum } from '@gjv/redux-slice-factory'
 import { AnyAction, Dispatch, ThunkDispatch } from '@reduxjs/toolkit'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import { createTag, deleteTag, getTags } from '../../data-sources/moodful-api'
-import { mapErrorToSerializableObject } from '../../lib/Utilities'
+import { isNil, mapErrorToSerializableObject } from '../../lib/Utilities'
 import { IGlobalState } from '../../store/configureStore'
 import { IDuck } from '../types'
 import { ITagModel } from './TagModel'
@@ -14,7 +14,13 @@ const slice = createEntitySlice<IGlobalState, SliceModel>({
     name: 'ReviewTags',
     selectSliceState: (globalState) => globalState.ReviewTags,
     selectId: (o) => o.id,
-    sortComparer: (a, b) => moment(a.createdAt).diff(b.createdAt, 'seconds'),
+    sortComparer: (a, b) => {
+        if (isNil(a.createdAt)) return -1
+        if (isNil(b.createdAt)) return -1
+        const aCreatedAt = DateTime.fromISO(a.createdAt)
+        const bCreatedAt = DateTime.fromISO(b.createdAt)
+        return aCreatedAt.diff(bCreatedAt, 'seconds').as('seconds')
+    },
 })
 
 const get = () => async (dispatch: Dispatch): Promise<void> => {

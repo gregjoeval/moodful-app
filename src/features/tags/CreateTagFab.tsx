@@ -12,11 +12,11 @@ import {
 import AddIcon from '@material-ui/icons/Add'
 import { makeStyles } from '@material-ui/styles'
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit'
+import { DateTime } from 'luxon'
 import React, { useCallback, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuid } from 'uuid'
-import { getISOStringWithOffset } from '../../lib/Utilities'
 import { IGlobalState } from '../../store/configureStore'
 import TagFormFields from './TagFormFields'
 import { ITagModel, TagModel, TagsDuck } from './index'
@@ -40,7 +40,7 @@ const CreateTagFab: React.FunctionComponent = () => {
     const reviewsSliceState = useSelector(TagsDuck.Selectors.selectSliceState)
 
     const onSubmit = useCallback((model: FormModel) => {
-        const timestamp = getISOStringWithOffset()
+        const timestamp = DateTime.now().toISO()
         const tag = TagModel.create({
             id: model.id ?? uuid(),
             createdAt: timestamp,

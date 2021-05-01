@@ -1,6 +1,6 @@
 import { Review } from '@gjv/moodful-api-client'
-import moment from 'moment'
-import { getISOStringWithOffset, isNil } from '../../lib/Utilities'
+import { DateTime } from 'luxon'
+import { isNil } from '../../lib/Utilities'
 
 export interface IReviewModel {
     id: string;
@@ -28,15 +28,14 @@ const create = (args: Partial<IReviewModel> = {}): IReviewModel => {
 
 const mapFromApiModel = (model: Review): IReviewModel => create({
     ...model, // TODO: map the props, this is lazy
-    // eslint-disable-next-line no-undefined
-    createdAt: isNil(model.createdAt) ? undefined : getISOStringWithOffset(model.createdAt),
-    lastModified: isNil(model.lastModified) ? null : getISOStringWithOffset(model.lastModified),
+    createdAt: model.createdAt?.toISOString(),
+    lastModified: model.lastModified?.toISOString(),
 })
 
 const mapToApiModel = (model: IReviewModel): Review => ({
     ...model, // TODO: map the props, this is lazy
-    createdAt: moment(model.createdAt).toDate(),
-    lastModified: isNil(model.lastModified) ? null : moment(model.lastModified).toDate(),
+    createdAt: DateTime.fromISO(model.createdAt).toJSDate(),
+    lastModified: isNil(model.lastModified) ? null : DateTime.fromISO(model.lastModified).toJSDate(),
 })
 
 const ReviewModel = {

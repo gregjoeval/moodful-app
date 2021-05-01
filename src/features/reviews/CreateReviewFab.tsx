@@ -12,11 +12,11 @@ import {
 import AddIcon from '@material-ui/icons/Add'
 import { makeStyles } from '@material-ui/styles'
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit'
+import { DateTime } from 'luxon'
 import React, { useCallback, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuid } from 'uuid'
-import { getISOStringWithOffset } from '../../lib/Utilities'
 import { IGlobalState } from '../../store/configureStore'
 import ReviewFormFields from './ReviewFormFields'
 import { IReviewModel, ReviewModel, ReviewsDuck } from './index'
@@ -39,7 +39,7 @@ const CreateReviewFab: React.FunctionComponent = () => {
     const reviewsSliceState = useSelector(ReviewsDuck.Selectors.selectSliceState)
 
     const onSubmit = useCallback((model: IReviewModel) => {
-        const timestamp = getISOStringWithOffset()
+        const timestamp = DateTime.now().toISO()
         const review = ReviewModel.create({
             id: model.id ?? uuid(),
             createdAt: model.createdAt ?? timestamp,

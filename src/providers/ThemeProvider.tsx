@@ -1,4 +1,4 @@
-import MomentUtils from '@date-io/moment'
+import LuxonUtils from '@date-io/luxon'
 import { createMuiTheme, CssBaseline, useMediaQuery } from '@material-ui/core'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles'
@@ -31,7 +31,7 @@ const ThemeProvider: React.FunctionComponent = ({ children }) => {
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
+                <MuiPickersUtilsProvider utils={LuxonUtils}>
                     {children}
                 </MuiPickersUtilsProvider>
             </CssBaseline>

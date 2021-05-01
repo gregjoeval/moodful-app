@@ -1,5 +1,5 @@
 import { PaletteType, ThemeOptions } from '@material-ui/core'
-import _ from 'lodash'
+import merge from 'lodash.merge'
 import themeDefaults from './themeDefaults.json'
 
 export interface IThemeModel {
@@ -34,7 +34,7 @@ const toMuiThemeOptions = (theme: IThemeModel): IThemeOptions => {
     }
 
     // themeDefaults generated with https://my-mui.com/
-    return _.merge<Record<string, unknown>, IThemeOptions>(themeDefaults, overrides)
+    return merge<Record<string, unknown>, IThemeOptions>(themeDefaults, overrides)
 }
 
 const create = (args: Partial<IThemeModel>): IThemeModel => {

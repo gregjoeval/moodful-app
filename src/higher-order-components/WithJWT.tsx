@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ConfigurationDuck } from '../features/configuration'
@@ -74,10 +74,11 @@ const withJWT = <Props extends Record<string, unknown>> (Component: React.Compon
                     void getAccessTokenAsync()
                 } else {
                     const { exp } = parseToken(token)
-                    const now = moment()
-                    const expirationDate = moment(exp, 'x') // 'x' is Unix ms timestamp
-                    const difference = now.diff(expirationDate, 'milliseconds')
-                    if (difference >= 0) {
+                    const expiration = Number.parseInt(exp, 10)
+                    const differenceInSeconds = DateTime.fromMillis(expiration)
+                        .diffNow('seconds')
+                        .as('seconds')
+                    if (differenceInSeconds >= 0) {
                         // eslint-disable-next-line no-console
                         console.debug('Access token has expired.')
                         void getAccessTokenAsync()
