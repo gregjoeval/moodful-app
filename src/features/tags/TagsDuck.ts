@@ -2,7 +2,7 @@ import { createEntitySlice, IEntityState, StatusEnum } from '@gjv/redux-slice-fa
 import { AnyAction, Dispatch, ThunkDispatch } from '@reduxjs/toolkit'
 import { DateTime } from 'luxon'
 import { createTag, deleteTag, getTags } from '../../data-sources/moodful-api'
-import { isNil, mapErrorToSerializableObject } from '../../lib/Utilities'
+import { isNil, mapErrorToSerializableObject, nameOf } from '../../lib/Utilities'
 import { IGlobalState } from '../../store/configureStore'
 import { IDuck } from '../types'
 import { ITagModel } from './TagModel'
@@ -11,7 +11,7 @@ type SliceModel = ITagModel
 export type SliceState = IEntityState<SliceModel>
 
 const slice = createEntitySlice<IGlobalState, SliceModel>({
-    name: 'ReviewTags',
+    name: nameOf<IGlobalState>('ReviewTags'),
     selectSliceState: (globalState) => globalState.ReviewTags,
     selectId: (o) => o.id,
     sortComparer: (a, b) => {
