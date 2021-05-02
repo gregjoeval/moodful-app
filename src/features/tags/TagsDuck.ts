@@ -33,7 +33,7 @@ const get = () => async (dispatch: Dispatch): Promise<void> => {
         dispatch(slice.actions.setStatus(StatusEnum.Settled))
     } catch (e: unknown) {
         dispatch(slice.actions.setStatus(StatusEnum.Failed))
-        dispatch(slice.actions.setError(e as Error))
+        dispatch(slice.actions.setError(mapErrorToSerializableObject(e as Error)))
     }
 }
 
